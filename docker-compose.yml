@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: apt_analysis_db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=apt_analysis
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - apt_network
+
+  backend:
+    build: ./backend
+    container_name: apt_analysis_backend
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=apt_analysis
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres123
+      - JWT_SECRET=apt_analysis_secret_key_2026
+      - JWT_EXPIRES_IN=7d
+      - PORT=3001
+      - NODE_ENV=production
+      - OPENAI_API_URL=https://free.v36.cm/v1
+      - OPENAI_API_KEY=sk-haCw0b52kZKvmycHCb4742Ad27A44011838cEf6c43864b82
+    depends_on:
+      - db
+    volumes:
+      - ./backend/src/uploads:/app/src/uploads
+    networks:
+      - apt_network
+
+  frontend:
+    build: ./frontend
+    container_name: apt_analysis_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - apt_network
+
+volumes:
+  postgres_data:
+
+networks:
+  apt_network:
+    driver: bridge

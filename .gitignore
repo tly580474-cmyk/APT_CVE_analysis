@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+*.log
+npm-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+backend/src/uploads/
+frontend/public/uploads/
+
+# Database
+*.sqlite
+*.db
+
+# CVE Repository (large number of files - upload separately)
+cve_repo/
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/

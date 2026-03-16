@@ -1,0 +1,41 @@
+CVE数据分析报告
+==================================================
+Total CVEs: 92796
+Years covered: 2020, 2021, 2022, 2023, 2024, 2025, 2026
+
+CVE count by year:
+2020: 10680
+2021: 11116
+2022: 13188
+2023: 16453
+2024: 24057
+2025: 16741
+2026: 561
+
+Top 10 vulnerability types:
+其他: 28240
+CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'): 5426
+CWE-352 Cross-Site Request Forgery (CSRF): 2888
+CWE-862 Missing Authorization: 2222
+Injection: 2213
+CWE-89 SQL Injection: 1548
+CWE-79 Cross-Site Scripting (XSS): 1542
+CWE-79 Cross-site Scripting (XSS): 1199
+CWE-79 Improper Neutralization of Input During Web Page Generation (XSS or 'Cross-site Scripting'): 1040
+CWE-89 Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'): 976
+
+Top 10 products:
+其他: 24242
+Linux: 2919
+Chrome: 855
+Samsung%20Mobile%20Devices: 746
+Android: 740
+Windows%2010%20Version%201507: 693
+MySQL%20Server: 557
+iOS%20and%20iPadOS: 418
+macOS: 416
+Firefox%20ESR: 354
+
+POC availability:
+With GitHub POC: 30661
+Without GitHub POC:62135

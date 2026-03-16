@@ -1,0 +1,56 @@
+/* 自定义导航菜单样式 */
+.ant-menu-horizontal {
+  border-bottom: none !important;
+  background: transparent !important;
+}
+
+/* 导航菜单项 - 浅色文字 */
+.ant-menu-horizontal > .ant-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 16px !important;
+  margin: 0 4px !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  color: #94a3b8 !important; /* 浅色文字 */
+}
+
+/* 悬停效果 */
+.ant-menu-horizontal > .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important; /* 悬停时更亮 */
+}
+
+/* 选中项样式 */
+.ant-menu-horizontal > .ant-menu-item-selected {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important; /* 选中项白色 */
+  font-weight: 600;
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected::after {
+  display: none !important;
+}
+
+/* 图标颜色 */
+.ant-menu-horizontal > .ant-menu-item .anticon {
+  font-size: 16px;
+  color: inherit !important;
+}
+
+/* 确保菜单不会折叠 */
+.ant-menu-overflow {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+.ant-menu-overflow-item {
+  flex-shrink: 0 !important;
+}
+
+/* 隐藏折叠按钮 */
+.ant-menu-overflow-item-rest,
+.ant-menu-submenu-horizontal {
+  display: none !important;
+}

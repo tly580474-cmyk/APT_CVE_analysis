@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVE数据分析报告展示</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+        .header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 40px 0;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 15px 20px;
+        }
+        .chart-container {
+            width: 100%;
+            height: 450px;
+            padding: 20px;
+        }
+        .stats-card {
+            text-align: center;
+            padding: 20px;
+        }
+        .stats-card .number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #007bff;
+            margin: 10px 0;
+        }
+        .stats-card .label {
+            color: #6c757d;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: #6c757d;
+            padding-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header text-center">
+            <h1>CVE 数据分析报告</h1>
+            <p class="lead">基于 cve_analysis_report.txt 的实时数据展示</p>
+        </div>
+        
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="label">总 CVE 数量</div>
+                    <div class="number">{{ data.total_cves }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="label">覆盖年份</div>
+                    <div class="number" style="font-size: 1.2rem; padding: 15px 0;">{{ data.years|join(', ') }}</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card stats-card">
+                    <div class="label">GitHub POC 覆盖率</div>
+                    <div class="number">
+                        {% if data.total_cves > 0 %}
+                            {{ "%.1f"|format(data.poc_data.with_poc / data.total_cves * 100) }}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">每年 CVE 数量趋势</div>
+                    <div class="card-body">
+                        <div id="year-chart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Top 10 漏洞类型</div>
+                    <div class="card-body">
+                        <div id="vulnerability-chart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Top 10 受影响产品</div>
+                    <div class="card-body">
+                        <div id="product-chart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">POC 可用性分布</div>
+                    <div class="card-body">
+                        <div id="poc-chart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p> 数据来源: cve_analysis_report.txt</p>
+        </div>
+    </div>
+    
+    <script>
+        // 从后端获取的数据
+        const reportData = JSON.parse('{{ data|tojson|safe }}');
+        
+        // 1. 每年CVE数量趋势
+        const yearChart = echarts.init(document.getElementById('year-chart'));
+        const yearOption = {
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'category', data: Object.keys(reportData.year_data) },
+            yAxis: { type: 'value' },
+            series: [{
+                name: 'CVE数量',
+                type: 'line',
+                smooth: true,
+                data: Object.values(reportData.year_data),
+                areaStyle: { opacity: 0.3 },
+                itemStyle: { color: '#007bff' },
+                lineStyle: { width: 3 }
+            }]
+        };
+        yearChart.setOption(yearOption);
+        
+        // 2. 漏洞类型分布
+        const vulnerabilityChart = echarts.init(document.getElementById('vulnerability-chart'));
+        const vulnerabilityOption = {
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value' },
+            yAxis: { 
+                type: 'category', 
+                data: reportData.top_vulnerabilities.map(item => item.type).reverse(),
+                axisLabel: {
+                    formatter: function (value) {
+                        return value.length > 20 ? value.substring(0, 20) + '...' : value;
+                    }
+                }
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: reportData.top_vulnerabilities.map(item => item.count).reverse(),
+                itemStyle: { color: '#28a745' }
+            }]
+        };
+        vulnerabilityChart.setOption(vulnerabilityOption);
+        
+        // 3. 产品分布
+        const productChart = echarts.init(document.getElementById('product-chart'));
+        const productOption = {
+            tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+            grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+            xAxis: { type: 'value' },
+            yAxis: { 
+                type: 'category', 
+                data: reportData.top_products.map(item => item.name).reverse() 
+            },
+            series: [{
+                name: '数量',
+                type: 'bar',
+                data: reportData.top_products.map(item => item.count).reverse(),
+                itemStyle: { color: '#ffc107' }
+            }]
+        };
+        productChart.setOption(productOption);
+        
+        // 4. POC可用性分布
+        const pocChart = echarts.init(document.getElementById('poc-chart'));
+        const pocOption = {
+            tooltip: { trigger: 'item' },
+            legend: { orient: 'vertical', left: 'left' },
+            series: [{
+                name: 'POC可用性',
+                type: 'pie',
+                radius: ['40%', '70%'],
+                avoidLabelOverlap: false,
+                itemStyle: { borderRadius: 10, borderColor: '#fff', borderWidth: 2 },
+                label: { show: false, position: 'center' },
+                emphasis: { label: { show: true, fontSize: '20', fontWeight: 'bold' } },
+                labelLine: { show: false },
+                data: [
+                    { value: reportData.poc_data.with_poc, name: '有 GitHub POC', itemStyle: { color: '#28a745' } },
+                    { value: reportData.poc_data.without_poc, name: '无 GitHub POC', itemStyle: { color: '#dc3545' } }
+                ]
+            }]
+        };
+        pocChart.setOption(pocOption);
+        
+        // 响应式调整
+        window.addEventListener('resize', function() {
+            yearChart.resize();
+            vulnerabilityChart.resize();
+            productChart.resize();
+            pocChart.resize();
+        });
+    </script>
+</body>
+</html>
