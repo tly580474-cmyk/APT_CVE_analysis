@@ -71,7 +71,7 @@ const Documents = () => {
       editor.destroy();
       setEditor(null);
     };
-  }, [editor]);
+  }, [isEditModalVisible]);
 
   const columns = [
     { title: 'ID', dataIndex: 'id', key: 'id', width: 80 },
