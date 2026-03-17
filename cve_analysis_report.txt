@@ -1,9 +1,41 @@
-CVE数据分析报告
-==================================================
-Total CVEs: 92796
-Years covered: 2020, 2021, 2022, 2023, 2024, 2025, 2026
+================================================================================
+                        CVE DOCUMENTS ANALYSIS REPORT
+================================================================================
 
-CVE count by year:
+Report Generated: 2026-03-17 17:51:29
+Analysis Duration: 2m14.5169866s
+
+================================================================================
+                              OVERVIEW
+================================================================================
+Total CVE Documents Analyzed: 155445
+With POC: 98949
+Without POC: 56496
+
+--------------------------------------------------------------------------------
+YEAR DISTRIBUTION
+--------------------------------------------------------------------------------
+1999: 243
+2000: 156
+2001: 197
+2002: 382
+2003: 312
+2004: 748
+2005: 1355
+2006: 3045
+2007: 3322
+2008: 4146
+2009: 2168
+2010: 2470
+2011: 1566
+2012: 2067
+2013: 2404
+2014: 4695
+2015: 4341
+2016: 4775
+2017: 7311
+2018: 8803
+2019: 8143
 2020: 10680
 2021: 11116
 2022: 13188
@@ -12,30 +44,54 @@ CVE count by year:
 2025: 16741
 2026: 561
 
-Top 10 vulnerability types:
-其他: 28240
-CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting'): 5426
-CWE-352 Cross-Site Request Forgery (CSRF): 2888
-CWE-862 Missing Authorization: 2222
-Injection: 2213
-CWE-89 SQL Injection: 1548
-CWE-79 Cross-Site Scripting (XSS): 1542
-CWE-79 Cross-site Scripting (XSS): 1199
-CWE-79 Improper Neutralization of Input During Web Page Generation (XSS or 'Cross-site Scripting'): 1040
-CWE-89 Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection'): 976
+--------------------------------------------------------------------------------
+TOP AFFECTED PRODUCTS
+--------------------------------------------------------------------------------
+ 1. Linux                          2923
+ 2. Android                        1257
+ 3. Chrome                         1013
+ 4. MySQL Server                   875
+ 5. Samsung Mobile Devices         746
+ 6. Windows 10 Version 1507        718
+ 7. Firefox ESR                    531
+ 8. macOS                          454
+ 9. iOS and iPadOS                 418
+10. GitLab                         341
+11. Mattermost                     312
+12. Firefox                        295
+13. VM VirtualBox                  279
+14. Foxit Reader                   248
+15. PDF Reader                     209
+16. Snapdragon                     196
+17. Windows 10 Version 1903 for 32-bit Systems 189
+18. PeopleSoft Enterprise PT PeopleTools 180
+19. Java                           179
+20. Safari                         172
 
-Top 10 products:
-其他: 24242
-Linux: 2919
-Chrome: 855
-Samsung%20Mobile%20Devices: 746
-Android: 740
-Windows%2010%20Version%201507: 693
-MySQL%20Server: 557
-iOS%20and%20iPadOS: 418
-macOS: 416
-Firefox%20ESR: 354
+--------------------------------------------------------------------------------
+VULNERABILITY TYPES
+--------------------------------------------------------------------------------
+ 1. CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') 5437
+ 2. CWE-352 Cross-Site Request Forgery (CSRF) 2892
+ 3. CWE-862 Missing Authorization       2233
+ 4. Injection                           2216
+ 5. CWE-89 SQL Injection                1683
+ 6. CWE-79 Cross-Site Scripting (XSS)   1542
+ 7. CWE-79 Cross-site Scripting (XSS)   1215
+ 8. CWE-79 Improper Neutralization of Input During Web Page Generation (XSS or 'Cross-site Scripting') 1044
+ 9. CWE-89 Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection') 985
+10. Remote Code Execution               901
+11. CWE-79: Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') 855
+12. Elevation of privilege              734
+13. CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal') 717
+14. Code Injection                      712
+15. CWE-79 Cross Site Scripting         678
+16. Elevation of Privilege              668
+17. CWE-434 Unrestricted Upload of File with Dangerous Type 643
+18. CWE-416: Use After Free             565
+19. Information Disclosure              556
+20. CWE-20: Improper Input Validation   553
 
-POC availability:
-With GitHub POC: 30661
-Without GitHub POC:62135
+================================================================================
+                              END OF REPORT
+================================================================================
