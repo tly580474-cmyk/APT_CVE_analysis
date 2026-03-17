@@ -67,39 +67,41 @@ const parseCVEAnalysisReport = async (req, res) => {
     lines.forEach(line => {
       const trimmed = line.trim();
 
-      if (trimmed === 'CVE count by year:') {
+      if (trimmed === 'YEAR DISTRIBUTION') {
         section = 'years';
-      } else if (trimmed === 'Top 10 vulnerability types:') {
+      } else if (trimmed === 'VULNERABILITY TYPES') {
         section = 'vulnerabilities';
-      } else if (trimmed === 'Top 10 products:') {
+      } else if (trimmed === 'TOP AFFECTED PRODUCTS') {
         section = 'products';
-      } else if (trimmed === 'POC availability:') {
-        section = 'poc';
-      } else if (trimmed.startsWith('With GitHub POC:')) {
+      } else if (trimmed.startsWith('With POC:')) {
         data.pocAvailable = parseInt(trimmed.split(':')[1].trim());
-      } else if (trimmed.startsWith('Without GitHub POC:')) {
+      } else if (trimmed.startsWith('Without POC:')) {
         data.pocUnavailable = parseInt(trimmed.split(':')[1].trim());
       } else if (section === 'years' && trimmed.includes(':')) {
-        const [year, count] = trimmed.split(': ');
-        data.yearData[year] = parseInt(count);
-      } else if (section === 'vulnerabilities' && trimmed.includes(':')) {
-        const parts = trimmed.split(': ');
-        const type = parts.slice(0, -1).join(': ');
-        const count = parseInt(parts[parts.length - 1]);
-        const shortName = extractShortVulnName(type);
-        // 如果名称已存在，累加数量
-        if (data.vulnerabilityTypes[shortName]) {
-          data.vulnerabilityTypes[shortName] += count;
-        } else {
-          data.vulnerabilityTypes[shortName] = count;
+        const [year, count] = trimmed.split(':');
+        if (year && count && !isNaN(parseInt(count))) {
+          data.yearData[year.trim()] = parseInt(count);
         }
-      } else if (section === 'products' && trimmed.includes(':')) {
-        const parts = trimmed.split(': ');
-        const product = parts.slice(0, -1).join(': ');
-        const count = parseInt(parts[parts.length - 1]);
-        // 解码URL编码的产品名称
-        const decodedProduct = decodeURIComponent(product);
-        data.products[decodedProduct === 'n/a' ? '其他' : decodedProduct] = count;
+      } else if (section === 'vulnerabilities' && trimmed.match(/^\d+\.\s+/)) {
+        const match = trimmed.match(/^\d+\.\s+(.+?)\s+(\d+)$/);
+        if (match) {
+          const type = match[1].trim();
+          const count = parseInt(match[2]);
+          const shortName = extractShortVulnName(type);
+          if (data.vulnerabilityTypes[shortName]) {
+            data.vulnerabilityTypes[shortName] += count;
+          } else {
+            data.vulnerabilityTypes[shortName] = count;
+          }
+        }
+      } else if (section === 'products' && trimmed.match(/^\d+\.\s+/)) {
+        const match = trimmed.match(/^\d+\.\s+(.+?)\s+(\d+)$/);
+        if (match) {
+          const product = match[1].trim();
+          const count = parseInt(match[2]);
+          const decodedProduct = decodeURIComponent(product);
+          data.products[decodedProduct] = count;
+        }
       }
     });
 
