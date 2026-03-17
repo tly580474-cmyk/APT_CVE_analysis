@@ -85,7 +85,7 @@ const Layout = () => {
   return (
     <AntLayout className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* 顶部导航栏 - 玻璃拟态效果 */}
-      <Header className="flex items-center justify-between px-6 sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-lg shadow-blue-900/5">
+      <Header className="flex items-center justify-between px-6 sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-white/20 shadow-lg shadow-blue-900/15" style={{ minWidth: 'fit-content' }}>
         <div className="flex items-center gap-8">
           {/* Logo */}
           <div className="flex items-center gap-3">
@@ -103,10 +103,11 @@ const Layout = () => {
             selectedKeys={[location.pathname]}
             items={menuItems}
             onClick={handleMenuClick}
-            className="border-0 bg-transparent min-w-[500px]"
+            className="border-0 bg-transparent flex-1"
             style={{ 
               background: 'transparent',
-              border: 'none'
+              border: 'none',
+              flexWrap: 'nowrap'
             }}
           />
         </div>
