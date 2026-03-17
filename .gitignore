@@ -31,8 +31,35 @@ frontend/public/uploads/
 *.sqlite
 *.db
 
-# CVE Repository (large number of files - upload separately)
-cve_repo/
+# CVE Data (local only)
+cve_repo/1999/
+cve_repo/2000/
+cve_repo/2001/
+cve_repo/2002/
+cve_repo/2003/
+cve_repo/2004/
+cve_repo/2005/
+cve_repo/2006/
+cve_repo/2007/
+cve_repo/2008/
+cve_repo/2009/
+cve_repo/2010/
+cve_repo/2011/
+cve_repo/2012/
+cve_repo/2013/
+cve_repo/2014/
+cve_repo/2015/
+cve_repo/2016/
+cve_repo/2017/
+cve_repo/2018/
+cve_repo/2019/
+cve_repo/2020/
+cve_repo/2021/
+cve_repo/2022/
+cve_repo/2023/
+cve_repo/2024/
+cve_repo/2025/
+cve_repo/2026/
 
 # Python
 __pycache__/
