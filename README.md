@@ -14,15 +14,15 @@
 ### 2. PostgreSQL (必须)
 - **版本要求**: PostgreSQL 15 或更高版本
 - **下载地址**: https://www.postgresql.org/download/
-- **推荐方式**: 使用 Docker 容器运行（无需本地安装）
+- **推荐方式**: 本地安装或者docker容器化
 
-### 3. Docker Desktop (推荐)
+### 3. Docker Desktop (可选)
 - **版本要求**: Docker 20.10+ 
 - **下载地址**: https://www.docker.com/products/docker-desktop
 - **用途**: 运行 PostgreSQL 数据库容器
 
 ### 4. Git (可选，用于版本控制)
-- **下载地址**: https://git-scm.com/[';;;;;;;;']
+- **下载地址**: https://git-scm.com/
 
 ## 技术栈
 
