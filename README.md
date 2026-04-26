@@ -43,7 +43,7 @@
 - Multer文件上传
 
 ### AI集成
-- OpenAI API (https://free.v36.cm/v1)
+- OpenAI API :
 
 ## 项目结构
 
