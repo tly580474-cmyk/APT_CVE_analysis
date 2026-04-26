@@ -111,6 +111,17 @@ export const aiAnalysisAPI = {
   getConfig: () => api.get('/ai-analysis/config'),
   analyzeFile: (filePath, customPrompt) => api.post('/ai-analysis/analyze-file', { filePath, customPrompt }),
   analyzeText: (content, customPrompt) => api.post('/ai-analysis/analyze-text', { content, customPrompt }),
+  analyzeTextStream: (content, customPrompt) => {
+    const token = localStorage.getItem('token');
+    return fetch(`${API_BASE_URL}/ai-analysis/analyze-text-stream`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token ? `Bearer ${token}` : ''
+      },
+      body: JSON.stringify({ content, customPrompt })
+    });
+  }
 };
 
 export default api;

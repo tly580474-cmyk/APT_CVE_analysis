@@ -47,7 +47,7 @@ const Forum = () => {
       editor.destroy();
       setEditor(null);
     };
-  }, [editor]);
+  }, [isModalVisible]);
 
   useEffect(() => {
     fetchPosts();

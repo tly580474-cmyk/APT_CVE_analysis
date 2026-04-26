@@ -122,7 +122,7 @@ const Layout = () => {
               <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 cursor-pointer hover:shadow-md transition-all duration-300">
                 <Avatar 
                   src={user?.avatar} 
-                  icon={!user?.avatar && <UserOutlined />} 
+                  icon={!user?.avatar ? <UserOutlined /> : undefined} 
                   className={isAdmin ? "bg-gradient-to-br from-red-500 to-orange-500" : "bg-gradient-to-br from-blue-500 to-indigo-600"}
                 />
                 <div className="flex flex-col">

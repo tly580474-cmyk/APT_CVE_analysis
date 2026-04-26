@@ -7,7 +7,6 @@ const Visualization = () => {
   const yearChartRef = useRef(null);
   const vulnChartRef = useRef(null);
   const productChartRef = useRef(null);
-  const pocChartRef = useRef(null);
   const [charts, setCharts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -178,7 +177,7 @@ const Visualization = () => {
       .filter(([name]) => name !== '其他')
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => a.value - b.value)
-      .slice(-10);
+      .slice(-20);
 
     productChart.setOption({
       ...commonChartOptions,
@@ -218,47 +217,6 @@ const Visualization = () => {
       }]
     });
     instances.push(productChart);
-
-    // 4. POC Availability (Simple Pie)
-    const pocChart = echarts.init(pocChartRef.current);
-    pocChart.setOption({
-      ...commonChartOptions,
-      tooltip: {
-        trigger: 'item',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: 8,
-        padding: 12,
-        textStyle: { color: '#1e293b' },
-        extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none;'
-      },
-      legend: {
-        bottom: '5%',
-        left: 'center',
-        icon: 'circle',
-        textStyle: { color: '#64748b' }
-      },
-      series: [{
-        type: 'pie',
-        radius: '65%',
-        center: ['50%', '45%'],
-        data: [
-          { value: data.pocAvailable, name: '有POC', itemStyle: { color: '#10b981' } },
-          { value: data.pocUnavailable, name: '无POC', itemStyle: { color: '#f43f5e' } },
-        ],
-        itemStyle: {
-          borderRadius: 8,
-          borderColor: '#fff',
-          borderWidth: 2
-        },
-        label: {
-          show: true,
-          position: 'outside',
-          formatter: '{b}: {d}%',
-          color: '#64748b'
-        }
-      }]
-    });
-    instances.push(pocChart);
 
     setCharts(instances);
 
@@ -300,14 +258,8 @@ const Visualization = () => {
 
         {/* 3. Product Distribution - Full Width */}
         <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft border border-surface-100">
-          <h2 className="text-xl font-bold text-surface-800 mb-6">Top 10 受影响产品分布</h2>
-          <div ref={productChartRef} className="w-full h-[500px]" />
-        </div>
-
-        {/* 4. POC Availability - Full Width (Separated from Types) */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft border border-surface-100">
-          <h2 className="text-xl font-bold text-surface-800 mb-6">POC 可用性统计</h2>
-          <div ref={pocChartRef} className="w-full h-[400px]" />
+          <h2 className="text-xl font-bold text-surface-800 mb-6">Top 20 受影响产品分布</h2>
+          <div ref={productChartRef} className="w-full h-[800px]" />
         </div>
       </div>
     </div>
