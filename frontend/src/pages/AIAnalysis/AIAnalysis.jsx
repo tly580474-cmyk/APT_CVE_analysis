@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Card, Upload, Button, Input, Form, message, Spin, Typography, Alert, Tag, Collapse, Switch } from 'antd';
 import { UploadOutlined, RobotOutlined, FileTextOutlined, CopyOutlined, EyeOutlined, ThunderboltOutlined } from '@ant-design/icons';
 import { aiAnalysisAPI } from '../../services/api';
+import { useDarkMode } from '../../contexts/DarkModeContext';
 import markdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 
@@ -45,6 +46,7 @@ const AIAnalysis = () => {
   const [streamMode, setStreamMode] = useState(true);
   const [isStreaming, setIsStreaming] = useState(false);
   const resultRef = useRef(null);
+  const { isDark } = useDarkMode();
 
   const renderedContent = useMemo(() => {
     if (!analysisResult) return '';
@@ -73,12 +75,8 @@ const AIAnalysis = () => {
   const readFileContent = (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        resolve(e.target.result);
-      };
-      reader.onerror = (e) => {
-        reject(e);
-      };
+      reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = (e) => reject(e);
       reader.readAsText(file);
     });
   };
@@ -103,7 +101,6 @@ const AIAnalysis = () => {
       message.success('文件读取成功');
     } catch (error) {
       message.error('文件读取失败');
-      console.error('读取文件错误:', error);
     }
   };
 
@@ -129,26 +126,17 @@ const AIAnalysis = () => {
         for (const line of lines) {
           if (line.startsWith('data: ')) {
             const data = line.slice(6);
-            if (data === '[DONE]') {
-              break;
-            }
+            if (data === '[DONE]') break;
             try {
               const parsed = JSON.parse(data);
-              if (parsed.content) {
-                setAnalysisResult(prev => prev + parsed.content);
-              }
-              if (parsed.error) {
-                message.error('流式分析错误: ' + parsed.error);
-              }
-            } catch (e) {
-              // 忽略解析错误
-            }
+              if (parsed.content) setAnalysisResult(prev => prev + parsed.content);
+              if (parsed.error) message.error('流式分析错误: ' + parsed.error);
+            } catch (e) {}
           }
         }
       }
       message.success('分析完成');
     } catch (error) {
-      console.error('流式分析失败:', error);
       message.error('分析失败: ' + (error.message || '未知错误'));
     } finally {
       setIsStreaming(false);
@@ -157,11 +145,7 @@ const AIAnalysis = () => {
   };
 
   const handleAnalyzeFile = async (values) => {
-    if (!fileContent) {
-      message.error('请先上传文件');
-      return;
-    }
-
+    if (!fileContent) { message.error('请先上传文件'); return; }
     if (streamMode) {
       await handleStreamAnalyze(fileContent, values.customPrompt);
     } else {
@@ -171,20 +155,13 @@ const AIAnalysis = () => {
         setAnalysisResult(response.data.analysis);
         message.success('分析完成');
       } catch (error) {
-        console.error('分析失败:', error);
         message.error('分析失败: ' + (error.response?.data?.message || '未知错误'));
-      } finally {
-        setLoading(false);
-      }
+      } finally { setLoading(false); }
     }
   };
 
   const handleAnalyzeText = async (values) => {
-    if (!values.content) {
-      message.error('请输入要分析的内容');
-      return;
-    }
-
+    if (!values.content) { message.error('请输入要分析的内容'); return; }
     if (streamMode) {
       await handleStreamAnalyze(values.content, values.customPrompt);
     } else {
@@ -194,11 +171,8 @@ const AIAnalysis = () => {
         setAnalysisResult(response.data.analysis);
         message.success('分析完成');
       } catch (error) {
-        console.error('分析失败:', error);
         message.error('分析失败: ' + (error.response?.data?.message || '未知错误'));
-      } finally {
-        setLoading(false);
-      }
+      } finally { setLoading(false); }
     }
   };
 
@@ -207,17 +181,8 @@ const AIAnalysis = () => {
     message.success('已复制到剪贴板');
   };
 
-  const handleStopStream = () => {
-    setIsStreaming(false);
-    setLoading(false);
-  };
-
   const uploadProps = {
-    onRemove: () => {
-      setFileList([]);
-      setFileContent('');
-      setFileName('');
-    },
+    onRemove: () => { setFileList([]); setFileContent(''); setFileName(''); },
     beforeUpload: () => false,
     onChange: handleFileChange,
     fileList,
@@ -225,20 +190,20 @@ const AIAnalysis = () => {
   };
 
   return (
-    <div className="p-6">
+    <div>
       <div className="mb-6">
-        <Title level={2}>
+        <Title level={2} className="!text-gray-900 dark:!text-white">
           <RobotOutlined className="mr-2" />
           智能分析
         </Title>
-        <Paragraph className="text-gray-500">
+        <Paragraph className="!text-gray-500 dark:!text-slate-400">
           使用 AI 分析 CVE 漏洞文件，获取专业的安全建议
         </Paragraph>
       </div>
 
       <div className="flex items-center gap-4 mb-4">
-        <Tag color="blue">模式: {streamMode ? '流式输出' : '普通输出'}</Tag>
-        <div className="flex items-center gap-2">
+        <Tag color="green">模式: {streamMode ? '流式输出' : '普通输出'}</Tag>
+        <div className="flex items-center gap-2 dark:text-slate-300">
           <span>流式输出</span>
           <Switch checked={streamMode} onChange={setStreamMode} />
         </div>
@@ -249,8 +214,8 @@ const AIAnalysis = () => {
           message="AI 配置信息"
           description={
             <div>
-              <Tag color="blue">模型: {config.model}</Tag>
-              <Tag color="green">状态: 已连接</Tag>
+              <Tag color="green">模型: {config.model}</Tag>
+              <Tag color="blue">状态: 已连接</Tag>
               {streamMode && <Tag color="orange">流式: 开启</Tag>}
             </div>
           }
@@ -261,16 +226,9 @@ const AIAnalysis = () => {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card title="上传文件分析" className="shadow-md">
-          <Form
-            form={form}
-            layout="vertical"
-            onFinish={handleAnalyzeFile}
-          >
-            <Form.Item
-              label="上传 CVE 文件"
-              extra="支持 Markdown (.md) 或文本 (.txt) 格式"
-            >
+        <Card title="上传文件分析" className="shadow-md dark:bg-slate-800 dark:border-slate-700">
+          <Form form={form} layout="vertical" onFinish={handleAnalyzeFile}>
+            <Form.Item label="上传 CVE 文件" extra="支持 Markdown (.md) 或文本 (.txt) 格式">
               <Upload {...uploadProps}>
                 <Button icon={<UploadOutlined />}>选择文件</Button>
               </Upload>
@@ -278,22 +236,16 @@ const AIAnalysis = () => {
 
             {fileContent && (
               <Form.Item label="文件内容预览">
-                <Collapse
-                  defaultActiveKey={['1']}
-                  className="mb-4"
-                >
-                  <Panel
-                    header={<span><EyeOutlined className="mr-2"/>{fileName}</span>}
-                    key="1"
-                  >
+                <Collapse defaultActiveKey={['1']} className="mb-4">
+                  <Panel header={<span><EyeOutlined className="mr-2"/>{fileName}</span>} key="1">
                     <div
                       className="whitespace-pre-wrap font-mono text-sm leading-relaxed overflow-auto"
                       style={{
-                        backgroundColor: '#f5f5f5',
+                        backgroundColor: isDark ? '#1e293b' : '#f5f5f5',
                         padding: '12px',
                         borderRadius: '4px',
                         maxHeight: '300px',
-                        border: '1px solid #e8e8e8'
+                        border: `1px solid ${isDark ? '#334155' : '#e8e8e8'}`
                       }}
                     >
                       {fileContent}
@@ -303,34 +255,15 @@ const AIAnalysis = () => {
               </Form.Item>
             )}
 
-            <Form.Item
-              name="customPrompt"
-              label="自定义提示词（可选）"
-            >
-              <TextArea
-                rows={3}
-                placeholder="输入自定义提示词，覆盖默认设置..."
-              />
+            <Form.Item name="customPrompt" label="自定义提示词（可选）">
+              <TextArea rows={3} placeholder="输入自定义提示词，覆盖默认设置..." />
             </Form.Item>
 
             <Form.Item>
               {isStreaming ? (
-                <Button
-                  danger
-                  onClick={handleStopStream}
-                  block
-                >
-                  停止生成
-                </Button>
+                <Button danger onClick={() => { setIsStreaming(false); setLoading(false); }} block>停止生成</Button>
               ) : (
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  icon={streamMode ? <ThunderboltOutlined /> : <RobotOutlined />}
-                  block
-                  disabled={!fileContent}
-                >
+                <Button type="primary" htmlType="submit" loading={loading} icon={streamMode ? <ThunderboltOutlined /> : <RobotOutlined />} block disabled={!fileContent}>
                   {streamMode ? '开始流式分析' : '开始分析'}
                 </Button>
               )}
@@ -338,49 +271,19 @@ const AIAnalysis = () => {
           </Form>
         </Card>
 
-        <Card title="直接输入分析" className="shadow-md">
-          <Form
-            layout="vertical"
-            onFinish={handleAnalyzeText}
-          >
-            <Form.Item
-              name="content"
-              label="CVE 内容"
-              rules={[{ required: true, message: '请输入要分析的内容' }]}
-            >
-              <TextArea
-                rows={10}
-                placeholder="在此粘贴 CVE 漏洞内容..."
-              />
+        <Card title="直接输入分析" className="shadow-md dark:bg-slate-800 dark:border-slate-700">
+          <Form layout="vertical" onFinish={handleAnalyzeText}>
+            <Form.Item name="content" label="CVE 内容" rules={[{ required: true, message: '请输入要分析的内容' }]}>
+              <TextArea rows={10} placeholder="在此粘贴 CVE 漏洞内容..." />
             </Form.Item>
-
-            <Form.Item
-              name="customPrompt"
-              label="自定义提示词（可选）"
-            >
-              <TextArea
-                rows={3}
-                placeholder="输入自定义提示词，覆盖默认设置..."
-              />
+            <Form.Item name="customPrompt" label="自定义提示词（可选）">
+              <TextArea rows={3} placeholder="输入自定义提示词，覆盖默认设置..." />
             </Form.Item>
-
             <Form.Item>
               {isStreaming ? (
-                <Button
-                  danger
-                  onClick={handleStopStream}
-                  block
-                >
-                  停止生成
-                </Button>
+                <Button danger onClick={() => { setIsStreaming(false); setLoading(false); }} block>停止生成</Button>
               ) : (
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  loading={loading}
-                  icon={streamMode ? <ThunderboltOutlined /> : <RobotOutlined />}
-                  block
-                >
+                <Button type="primary" htmlType="submit" loading={loading} icon={streamMode ? <ThunderboltOutlined /> : <RobotOutlined />} block>
                   {streamMode ? '开始流式分析' : '开始分析'}
                 </Button>
               )}
@@ -392,17 +295,11 @@ const AIAnalysis = () => {
       {analysisResult && (
         <Card
           title={isStreaming ? "分析结果 (生成中...)" : "分析结果"}
-          className="mt-6 shadow-md"
+          className="mt-6 shadow-md dark:bg-slate-800 dark:border-slate-700"
           extra={
             <div className="flex gap-2">
               {isStreaming && <Tag color="red">生成中...</Tag>}
-              <Button
-                icon={<CopyOutlined />}
-                onClick={handleCopyResult}
-                size="small"
-              >
-                复制结果
-              </Button>
+              <Button icon={<CopyOutlined />} onClick={handleCopyResult} size="small">复制结果</Button>
             </div>
           }
         >
@@ -411,7 +308,7 @@ const AIAnalysis = () => {
               ref={resultRef}
               className="prose max-w-none"
               style={{
-                backgroundColor: '#fafafa',
+                backgroundColor: isDark ? '#1e293b' : '#fafafa',
                 padding: '16px',
                 borderRadius: '8px',
                 minHeight: '200px',
@@ -431,107 +328,42 @@ const AIAnalysis = () => {
 
       <style>{`
         .markdown-body {
-          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+          font-family: 'JetBrains Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
           font-size: 14px;
           line-height: 1.6;
           word-wrap: break-word;
+          color: ${isDark ? '#e2e8f0' : '#1e293b'};
         }
-        .markdown-body h1,
-        .markdown-body h2,
-        .markdown-body h3,
-        .markdown-body h4,
-        .markdown-body h5,
-        .markdown-body h6 {
-          margin-top: 24px;
-          margin-bottom: 16px;
-          font-weight: 600;
-          line-height: 1.25;
+        .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+          margin-top: 24px; margin-bottom: 16px; font-weight: 600; line-height: 1.25;
+          color: ${isDark ? '#f1f5f9' : '#1e293b'};
         }
-        .markdown-body h1 { font-size: 2em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
-        .markdown-body h2 { font-size: 1.5em; border-bottom: 1px solid #eaecef; padding-bottom: 0.3em; }
+        .markdown-body h1 { font-size: 2em; border-bottom: 1px solid ${isDark ? '#334155' : '#eaecef'}; padding-bottom: 0.3em; }
+        .markdown-body h2 { font-size: 1.5em; border-bottom: 1px solid ${isDark ? '#334155' : '#eaecef'}; padding-bottom: 0.3em; }
         .markdown-body h3 { font-size: 1.25em; }
-        .markdown-body p {
-          margin-top: 0;
-          margin-bottom: 16px;
-        }
-        .markdown-body ul,
-        .markdown-body ol {
-          padding-left: 2em;
-          margin-top: 0;
-          margin-bottom: 16px;
-        }
-        .markdown-body li {
-          margin-top: 0.25em;
-        }
+        .markdown-body p { margin-top: 0; margin-bottom: 16px; }
+        .markdown-body ul, .markdown-body ol { padding-left: 2em; margin-top: 0; margin-bottom: 16px; }
+        .markdown-body li { margin-top: 0.25em; }
         .markdown-body blockquote {
-          padding: 0 1em;
-          color: #6a737d;
-          border-left: 0.25em solid #dfe2e5;
-          margin: 0 0 16px 0;
+          padding: 0 1em; color: ${isDark ? '#94a3b8' : '#6a737d'};
+          border-left: 0.25em solid ${isDark ? '#334155' : '#dfe2e5'}; margin: 0 0 16px 0;
         }
         .markdown-body code {
-          padding: 0.2em 0.4em;
-          margin: 0;
-          font-size: 85%;
-          background-color: rgba(27, 31, 35, 0.05);
-          border-radius: 3px;
-          font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+          padding: 0.2em 0.4em; margin: 0; font-size: 85%;
+          background-color: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(27,31,35,0.05)'};
+          border-radius: 3px; font-family: 'JetBrains Mono', Consolas, monospace;
         }
-        .markdown-body pre {
-          margin: 0 0 16px 0;
-          padding: 16px;
-          overflow: auto;
-          font-size: 85%;
-          line-height: 1.45;
-          background-color: #1e1e1e;
-          border-radius: 6px;
-        }
-        .markdown-body pre code {
-          padding: 0;
-          margin: 0;
-          background-color: transparent;
-          border: 0;
-          font-size: 100%;
-        }
-        .markdown-body table {
-          border-collapse: collapse;
-          margin: 0 0 16px 0;
-          width: 100%;
-        }
-        .markdown-body table th,
-        .markdown-body table td {
-          padding: 6px 13px;
-          border: 1px solid #dfe2e5;
-        }
-        .markdown-body table th {
-          font-weight: 600;
-          background-color: #f6f8fa;
-        }
-        .markdown-body table tr:nth-child(2n) {
-          background-color: #f6f8fa;
-        }
-        .markdown-body .table-wrapper {
-          overflow-x: auto;
-          margin: 0 0 16px 0;
-        }
-        .markdown-body hr {
-          height: 0.25em;
-          padding: 0;
-          margin: 24px 0;
-          background-color: #e1e4e8;
-          border: 0;
-        }
-        .markdown-body a {
-          color: #0366d6;
-          text-decoration: none;
-        }
-        .markdown-body a:hover {
-          text-decoration: underline;
-        }
-        .markdown-body img {
-          max-width: 100%;
-          box-sizing: content-box;
-        }
+        .markdown-body pre { margin: 0 0 16px 0; padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: #1e1e1e; border-radius: 6px; }
+        .markdown-body pre code { padding: 0; margin: 0; background-color: transparent; border: 0; font-size: 100%; }
+        .markdown-body table { border-collapse: collapse; margin: 0 0 16px 0; width: 100%; }
+        .markdown-body table th, .markdown-body table td { padding: 6px 13px; border: 1px solid ${isDark ? '#334155' : '#dfe2e5'}; }
+        .markdown-body table th { font-weight: 600; background-color: ${isDark ? '#1e293b' : '#f6f8fa'}; }
+        .markdown-body table tr:nth-child(2n) { background-color: ${isDark ? '#0f172a' : '#f6f8fa'}; }
+        .markdown-body .table-wrapper { overflow-x: auto; margin: 0 0 16px 0; }
+        .markdown-body hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: ${isDark ? '#334155' : '#e1e4e8'}; border: 0; }
+        .markdown-body a { color: #059669; text-decoration: none; }
+        .markdown-body a:hover { text-decoration: underline; }
+        .markdown-body img { max-width: 100%; box-sizing: content-box; }
       `}</style>
     </div>
   );

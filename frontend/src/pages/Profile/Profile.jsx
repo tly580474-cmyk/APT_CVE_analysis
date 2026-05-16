@@ -49,10 +49,10 @@ const Profile = () => {
       setAvatarUrl(newAvatarUrl);
 
       await authAPI.updateProfile({ avatar: newAvatarUrl });
-      
+
       const updatedUser = { ...user, avatar: newAvatarUrl };
       localStorage.setItem('user', JSON.stringify(updatedUser));
-      
+
       message.success('头像上传成功');
     } catch (error) {
       message.error('头像上传失败');
@@ -73,7 +73,7 @@ const Profile = () => {
       const updatedUser = response.data.user;
       setUser(updatedUser);
       localStorage.setItem('user', JSON.stringify(updatedUser));
-      
+
       message.success('个人资料更新成功');
     } catch (error) {
       message.error('更新失败: ' + (error.response?.data?.message || '未知错误'));
@@ -89,7 +89,7 @@ const Profile = () => {
         oldPassword: values.oldPassword,
         newPassword: values.newPassword,
       });
-      
+
       message.success('密码修改成功');
       passwordForm.resetFields();
     } catch (error) {
@@ -102,93 +102,64 @@ const Profile = () => {
   const items = [
     {
       key: '1',
-      label: 'Basic Info',
+      label: '基本信息',
       children: (
-        <Form
-          form={form}
-          onFinish={handleUpdateProfile}
-          layout="vertical"
-        >
-          <Form.Item label="Avatar">
-            <Upload
-              name="avatar"
-              accept="image/*"
-              showUploadList={false}
-              beforeUpload={handleAvatarUpload}
-            >
+        <Form form={form} onFinish={handleUpdateProfile} layout="vertical">
+          <Form.Item label="头像">
+            <Upload name="avatar" accept="image/*" showUploadList={false} beforeUpload={handleAvatarUpload}>
               <div className="cursor-pointer">
                 {avatarUrl ? (
                   <Avatar size={80} src={avatarUrl} />
                 ) : (
-                  <Avatar size={80} icon={<UserOutlined />} className="bg-gradient-to-br from-blue-500 to-indigo-600" />
+                  <Avatar size={80} icon={<UserOutlined />} className="bg-gradient-to-br from-primary-500 to-primary-700" />
                 )}
-                <div className="text-sm text-gray-500 mt-2">
-                  <UploadOutlined /> Click to upload
+                <div className="text-sm text-gray-500 dark:text-slate-400 mt-2">
+                  <UploadOutlined /> 点击上传
                 </div>
               </div>
             </Upload>
           </Form.Item>
 
-          <Form.Item
-            name="username"
-            label="Username"
-            rules={[{ required: true, message: 'Please enter username' }]}
-          >
+          <Form.Item name="username" label="用户名" rules={[{ required: true, message: '请输入用户名' }]}>
             <Input prefix={<UserOutlined />} />
           </Form.Item>
 
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              { required: true, message: 'Please enter email' },
-              { type: 'email', message: 'Please enter valid email' },
-            ]}
-          >
+          <Form.Item name="email" label="邮箱" rules={[
+            { required: true, message: '请输入邮箱' },
+            { type: 'email', message: '请输入有效的邮箱地址' },
+          ]}>
             <Input prefix={<MailOutlined />} />
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={saving}>
-              Save Changes
-            </Button>
+            <Button type="primary" htmlType="submit" loading={saving}>保存修改</Button>
           </Form.Item>
         </Form>
       ),
     },
     {
       key: '2',
-      label: 'Change Password',
+      label: '修改密码',
       children: (
         <Form form={passwordForm} onFinish={handleChangePassword} layout="vertical">
-          <Form.Item
-            name="oldPassword"
-            label="Current Password"
-            rules={[{ required: true, message: 'Please enter current password' }]}
-          >
+          <Form.Item name="oldPassword" label="当前密码" rules={[{ required: true, message: '请输入当前密码' }]}>
             <Input.Password prefix={<LockOutlined />} />
           </Form.Item>
 
-          <Form.Item
-            name="newPassword"
-            label="New Password"
-            rules={[{ required: true, message: 'Please enter new password' }]}
-          >
+          <Form.Item name="newPassword" label="新密码" rules={[{ required: true, message: '请输入新密码' }]}>
             <Input.Password prefix={<LockOutlined />} />
           </Form.Item>
 
           <Form.Item
             name="confirmPassword"
-            label="Confirm New Password"
+            label="确认新密码"
             dependencies={['newPassword']}
             rules={[
-              { required: true, message: 'Please confirm new password' },
+              { required: true, message: '请确认新密码' },
               ({ getFieldValue }) => ({
                 validator(_, value) {
-                  if (!value || getFieldValue('newPassword') === value) {
-                    return Promise.resolve();
-                  }
-                  return Promise.reject(new Error('Passwords do not match'));
+                  if (!value || getFieldValue('newPassword') === value) return Promise.resolve();
+                  return Promise.reject(new Error('两次输入的密码不一致'));
                 },
               }),
             ]}
@@ -197,9 +168,7 @@ const Profile = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" loading={saving}>
-              Change Password
-            </Button>
+            <Button type="primary" htmlType="submit" loading={saving}>修改密码</Button>
           </Form.Item>
         </Form>
       ),
@@ -208,8 +177,8 @@ const Profile = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Profile</h1>
-      <Card>
+      <h1 className="text-2xl font-bold mb-6 dark:text-white">个人资料</h1>
+      <Card className="dark:bg-slate-800 dark:border-slate-700">
         <Tabs items={items} />
       </Card>
     </div>

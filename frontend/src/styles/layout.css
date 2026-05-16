@@ -1,56 +1,63 @@
-/* 自定义导航菜单样式 */
-.ant-menu-horizontal {
-  border-bottom: none !important;
-  background: transparent !important;
+/* Sidebar active indicator */
+.sidebar-nav-item-active {
+  position: relative;
 }
 
-/* 导航菜单项 - 浅色文字 */
-.ant-menu-horizontal > .ant-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 16px !important;
-  margin: 0 4px !important;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  color: #94a3b8 !important; /* 浅色文字 */
+.sidebar-nav-item-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background-color: #059669;
+  border-radius: 0 2px 2px 0;
 }
 
-/* 悬停效果 */
-.ant-menu-horizontal > .ant-menu-item:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
-  color: #e2e8f0 !important; /* 悬停时更亮 */
+/* Dark mode Ant Design overrides */
+.dark .ant-layout {
+  background: #0f172a !important;
 }
 
-/* 选中项样式 */
-.ant-menu-horizontal > .ant-menu-item-selected {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important; /* 选中项白色 */
-  font-weight: 600;
+.dark .ant-layout-footer {
+  background: #1e293b !important;
 }
 
-.ant-menu-horizontal > .ant-menu-item-selected::after {
-  display: none !important;
+/* WangEditor dark mode overrides */
+.dark .w-e-toolbar {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
 }
 
-/* 图标颜色 */
-.ant-menu-horizontal > .ant-menu-item .anticon {
-  font-size: 16px;
-  color: inherit !important;
+.dark .w-e-toolbar .w-e-bar-item button {
+  color: #94a3b8 !important;
 }
 
-/* 确保菜单不会折叠 */
-.ant-menu-overflow {
-  display: flex !important;
-  flex-wrap: nowrap !important;
+.dark .w-e-text-container {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+  color: #e2e8f0 !important;
 }
 
-.ant-menu-overflow-item {
-  flex-shrink: 0 !important;
+.dark .w-e-text-container .w-e-text {
+  color: #e2e8f0 !important;
 }
 
-/* 隐藏折叠按钮 */
-.ant-menu-overflow-item-rest,
-.ant-menu-submenu-horizontal {
-  display: none !important;
+/* Custom scrollbar for sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 0;
+}
+
+/* Ant Design dark mode table fix */
+.dark .ant-table {
+  background: #1e293b !important;
+}
+
+.dark .ant-modal-content {
+  background: #1e293b !important;
+}
+
+.dark .ant-modal-header {
+  background: #1e293b !important;
 }

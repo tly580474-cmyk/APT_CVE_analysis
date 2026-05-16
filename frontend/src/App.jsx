@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, theme } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
+import { DarkModeProvider, useDarkMode } from './contexts/DarkModeContext';
 import Layout from './components/Layout/Layout';
 import { PrivateRoute, AdminRoute, PublicRoute } from './components/Auth/PrivateRoute';
 import Home from './pages/Home/Home';
@@ -19,9 +20,21 @@ import Admin from './pages/Admin/Admin';
 import AIAnalysis from './pages/AIAnalysis/AIAnalysis';
 import './App.css';
 
-function App() {
+const AppContent = () => {
+  const { isDark } = useDarkMode();
+
   return (
-    <ConfigProvider locale={zhCN}>
+    <ConfigProvider
+      locale={zhCN}
+      theme={{
+        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        token: {
+          colorPrimary: '#059669',
+          fontFamily: "'JetBrains Mono', 'Microsoft YaHei', -apple-system, sans-serif",
+          borderRadius: 6,
+        },
+      }}
+    >
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -34,56 +47,64 @@ function App() {
             <Route path="ai-analysis" element={<AIAnalysis />} />
             <Route path="forum" element={<Forum />} />
             <Route path="forum/post/:id" element={<ForumPost />} />
-            
+
             {/* 需要登录的路由 */}
-            <Route 
-              path="documents/upload" 
+            <Route
+              path="documents/upload"
               element={
                 <PrivateRoute>
                   <DocumentUpload />
                 </PrivateRoute>
-              } 
+              }
             />
-            <Route 
-              path="profile" 
+            <Route
+              path="profile"
               element={
                 <PrivateRoute>
                   <Profile />
                 </PrivateRoute>
-              } 
+              }
             />
-            
+
             {/* 管理员路由 */}
-            <Route 
-              path="admin" 
+            <Route
+              path="admin"
               element={
                 <AdminRoute>
                   <Admin />
                 </AdminRoute>
-              } 
+              }
             />
-            
+
             {/* 公开但已登录用户不能访问的路由 */}
-            <Route 
-              path="login" 
+            <Route
+              path="login"
               element={
                 <PublicRoute>
                   <Login />
                 </PublicRoute>
-              } 
+              }
             />
-            <Route 
-              path="register" 
+            <Route
+              path="register"
               element={
                 <PublicRoute>
                   <Register />
                 </PublicRoute>
-              } 
+              }
             />
           </Route>
         </Routes>
       </Router>
     </ConfigProvider>
+  );
+};
+
+function App() {
+  return (
+    <DarkModeProvider>
+      <AppContent />
+    </DarkModeProvider>
   );
 }
 

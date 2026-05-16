@@ -27,22 +27,12 @@ const DocumentDetail = () => {
   };
 
   const getThreatLevelColor = (level) => {
-    const colors = {
-      low: 'green',
-      medium: 'yellow',
-      high: 'orange',
-      critical: 'red',
-    };
+    const colors = { low: 'green', medium: 'yellow', high: 'orange', critical: 'red' };
     return colors[level] || 'default';
   };
 
   const getThreatLevelText = (level) => {
-    const texts = {
-      low: '低危',
-      medium: '中危',
-      high: '高危',
-      critical: '严重',
-    };
+    const texts = { low: '低危', medium: '中危', high: '高危', critical: '严重' };
     return texts[level] || '未知';
   };
 
@@ -57,10 +47,8 @@ const DocumentDetail = () => {
   if (!document) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">文档不存在</p>
-        <Button onClick={() => navigate('/documents')} className="mt-4">
-          返回文档列表
-        </Button>
+        <p className="text-gray-500 dark:text-slate-400">文档不存在</p>
+        <Button onClick={() => navigate('/documents')} className="mt-4">返回文档列表</Button>
       </div>
     );
   }
@@ -68,17 +56,13 @@ const DocumentDetail = () => {
   return (
     <div>
       <div className="flex items-center gap-4 mb-6">
-        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/documents')}>
-          返回
-        </Button>
-        <h1 className="text-2xl font-bold">文档详情</h1>
+        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/documents')}>返回</Button>
+        <h1 className="text-2xl font-bold dark:text-white">文档详情</h1>
       </div>
 
-      <Card>
+      <Card className="dark:bg-slate-800 dark:border-slate-700">
         <Descriptions bordered column={2}>
-          <Descriptions.Item label="标题" span={2}>
-            {document.title}
-          </Descriptions.Item>
+          <Descriptions.Item label="标题" span={2}>{document.title}</Descriptions.Item>
           <Descriptions.Item label="威胁等级">
             <Tag color={getThreatLevelColor(document.threatLevel)}>
               {getThreatLevelText(document.threatLevel)}
@@ -89,22 +73,16 @@ const DocumentDetail = () => {
               <EyeOutlined /> {document.heat || 0}
             </span>
           </Descriptions.Item>
-          <Descriptions.Item label="作者">
-            {document.User?.username || '未知'}
-          </Descriptions.Item>
-          <Descriptions.Item label="发布时间">
-            {new Date(document.createdAt).toLocaleString()}
-          </Descriptions.Item>
-          <Descriptions.Item label="文件类型" span={2}>
-            {document.fileType || '文本'}
-          </Descriptions.Item>
+          <Descriptions.Item label="作者">{document.User?.username || '未知'}</Descriptions.Item>
+          <Descriptions.Item label="发布时间">{new Date(document.createdAt).toLocaleString()}</Descriptions.Item>
+          <Descriptions.Item label="文件类型" span={2}>{document.fileType || '文本'}</Descriptions.Item>
         </Descriptions>
 
         <Divider orientation="left">
           <FileTextOutlined /> 内容
         </Divider>
-        <div className="bg-gray-50 p-4 rounded-lg min-h-[200px]">
-          <pre className="whitespace-pre-wrap text-gray-700">
+        <div className="bg-gray-50 dark:bg-slate-700 p-4 rounded-lg min-h-[200px]">
+          <pre className="whitespace-pre-wrap text-gray-700 dark:text-slate-300">
             {document.content || '暂无内容'}
           </pre>
         </div>
@@ -112,8 +90,8 @@ const DocumentDetail = () => {
         {document.aiAnalysis && (
           <>
             <Divider orientation="left">AI分析结果</Divider>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <pre className="whitespace-pre-wrap text-blue-800">
+            <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
+              <pre className="whitespace-pre-wrap text-primary-800 dark:text-primary-300">
                 {JSON.stringify(document.aiAnalysis, null, 2)}
               </pre>
             </div>

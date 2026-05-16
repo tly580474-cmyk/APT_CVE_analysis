@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, Row, Col, Select, message } from 'antd';
 import * as echarts from 'echarts';
 import { statsAPI } from '../../services/api';
+import { useDarkMode } from '../../contexts/DarkModeContext';
 
 const Visualization = () => {
   const yearChartRef = useRef(null);
@@ -9,16 +10,25 @@ const Visualization = () => {
   const productChartRef = useRef(null);
   const [charts, setCharts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [rawData, setRawData] = useState(null);
+  const { isDark } = useDarkMode();
 
-  // Modern color palette based on Google/Meta design specs
   const colors = [
-    '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', 
-    '#f59e0b', '#10b981', '#06b6d4', '#3b82f6'
+    '#059669', '#10b981', '#34d399', '#6ee7b7',
+    '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6'
   ];
+
+  const getTooltipStyle = () => ({
+    backgroundColor: isDark ? '#1e293b' : 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 8,
+    padding: 12,
+    textStyle: { color: isDark ? '#e2e8f0' : '#1e293b' },
+    extraCssText: `box-shadow: 0 4px 12px rgba(0,0,0,${isDark ? '0.3' : '0.1'}); border: none;`
+  });
 
   const commonChartOptions = {
     textStyle: {
-      fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+      fontFamily: 'JetBrains Mono, system-ui, sans-serif',
     },
     grid: {
       top: 40,
@@ -34,27 +44,18 @@ const Visualization = () => {
       try {
         const response = await statsAPI.getCVEAnalysis();
         const data = response.data.data;
-        initCharts(data);
+        setRawData(data);
       } catch (error) {
         console.error('Error loading data:', error);
         message.error('获取数据失败');
-        initCharts({
+        setRawData({
           yearData: { '2020': 10680, '2021': 11116, '2022': 13188, '2023': 16453, '2024': 24057, '2025': 16741, '2026': 561 },
           vulnerabilityTypes: {
-            '其他': 28240,
-            'XSS': 5426,
-            'CSRF': 2888,
-            'Missing Authorization': 2222,
-            'Injection': 2213,
+            '其他': 28240, 'XSS': 5426, 'CSRF': 2888, 'Missing Authorization': 2222, 'Injection': 2213,
           },
           products: {
-            '其他': 24242,
-            'Linux': 2919,
-            'Chrome': 855,
-            'Android': 740,
+            '其他': 24242, 'Linux': 2919, 'Chrome': 855, 'Android': 740,
           },
-          pocAvailable: 92796,
-          pocUnavailable: 0,
         });
       } finally {
         setLoading(false);
@@ -68,31 +69,31 @@ const Visualization = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (rawData) {
+      charts.forEach(chart => chart?.dispose());
+      initCharts(rawData);
+    }
+  }, [isDark, rawData]);
+
   const initCharts = (data) => {
     const instances = [];
 
-    // 1. Year Trend Chart (Line + Area)
+    // 1. Year Trend Chart
     const yearChart = echarts.init(yearChartRef.current);
     yearChart.setOption({
       ...commonChartOptions,
-      tooltip: {
-        trigger: 'axis',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: 8,
-        padding: 12,
-        textStyle: { color: '#1e293b' },
-        extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none;'
-      },
+      tooltip: { trigger: 'axis', ...getTooltipStyle() },
       xAxis: {
         type: 'category',
         data: Object.keys(data.yearData),
-        axisLine: { lineStyle: { color: '#e2e8f0' } },
-        axisLabel: { color: '#64748b', margin: 15 }
+        axisLine: { lineStyle: { color: isDark ? '#334155' : '#e2e8f0' } },
+        axisLabel: { color: isDark ? '#94a3b8' : '#64748b', margin: 15 }
       },
       yAxis: {
         type: 'value',
-        splitLine: { lineStyle: { type: 'dashed', color: '#f1f5f9' } },
-        axisLabel: { color: '#64748b' }
+        splitLine: { lineStyle: { type: 'dashed', color: isDark ? '#1e293b' : '#f1f5f9' } },
+        axisLabel: { color: isDark ? '#94a3b8' : '#64748b' }
       },
       series: [{
         data: Object.values(data.yearData),
@@ -100,12 +101,12 @@ const Visualization = () => {
         smooth: true,
         symbol: 'circle',
         symbolSize: 8,
-        itemStyle: { color: '#6366f1' },
+        itemStyle: { color: '#059669' },
         lineStyle: { width: 4 },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(99, 102, 241, 0.2)' },
-            { offset: 1, color: 'rgba(99, 102, 241, 0)' }
+            { offset: 0, color: 'rgba(5, 150, 105, 0.2)' },
+            { offset: 1, color: 'rgba(5, 150, 105, 0)' }
           ])
         }
       }]
@@ -116,21 +117,14 @@ const Visualization = () => {
     const vulnChart = echarts.init(vulnChartRef.current);
     vulnChart.setOption({
       ...commonChartOptions,
-      tooltip: {
-        trigger: 'item',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: 8,
-        padding: 12,
-        textStyle: { color: '#1e293b' },
-        extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none;'
-      },
+      tooltip: { trigger: 'item', ...getTooltipStyle() },
       legend: {
         orient: 'vertical',
         right: '5%',
         top: 'center',
         icon: 'circle',
         itemGap: 15,
-        textStyle: { color: '#64748b', fontSize: 12 }
+        textStyle: { color: isDark ? '#94a3b8' : '#64748b', fontSize: 12 }
       },
       series: [{
         type: 'pie',
@@ -139,32 +133,23 @@ const Visualization = () => {
         avoidLabelOverlap: true,
         itemStyle: {
           borderRadius: 10,
-          borderColor: '#fff',
+          borderColor: isDark ? '#1e293b' : '#fff',
           borderWidth: 2
         },
         label: {
           show: true,
           position: 'outside',
           formatter: '{b}: {d}%',
-          color: '#64748b',
+          color: isDark ? '#94a3b8' : '#64748b',
           fontSize: 12
         },
-        labelLine: {
-          show: true,
-          length: 15,
-          length2: 10
-        },
+        labelLine: { show: true, length: 15, length2: 10 },
         emphasis: {
-          label: {
-            show: true,
-            fontSize: 18,
-            fontWeight: 'bold'
-          }
+          label: { show: true, fontSize: 18, fontWeight: 'bold' }
         },
         data: Object.entries(data.vulnerabilityTypes)
-          .map(([name, value], index) => ({ 
-            name, 
-            value,
+          .map(([name, value], index) => ({
+            name, value,
             itemStyle: { color: colors[index % colors.length] }
           }))
       }]
@@ -185,23 +170,19 @@ const Visualization = () => {
       tooltip: {
         trigger: 'axis',
         axisPointer: { type: 'shadow' },
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-        borderRadius: 8,
-        padding: 12,
-        textStyle: { color: '#1e293b' },
-        extraCssText: 'box-shadow: 0 4px 12px rgba(0,0,0,0.1); border: none;'
+        ...getTooltipStyle()
       },
       xAxis: {
         type: 'value',
-        splitLine: { lineStyle: { type: 'dashed', color: '#f1f5f9' } },
-        axisLabel: { color: '#64748b' }
+        splitLine: { lineStyle: { type: 'dashed', color: isDark ? '#1e293b' : '#f1f5f9' } },
+        axisLabel: { color: isDark ? '#94a3b8' : '#64748b' }
       },
       yAxis: {
         type: 'category',
         data: productData.map(item => item.name),
         axisLine: { show: false },
         axisTick: { show: false },
-        axisLabel: { color: '#1e293b', fontWeight: 500 }
+        axisLabel: { color: isDark ? '#e2e8f0' : '#1e293b', fontWeight: 500 }
       },
       series: [{
         data: productData.map(item => item.value),
@@ -210,8 +191,8 @@ const Visualization = () => {
         itemStyle: {
           borderRadius: [0, 4, 4, 0],
           color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-            { offset: 0, color: '#8b5cf6' },
-            { offset: 1, color: '#c084fc' }
+            { offset: 0, color: '#059669' },
+            { offset: 1, color: '#34d399' }
           ])
         }
       }]
@@ -228,37 +209,34 @@ const Visualization = () => {
   };
 
   return (
-    <div className="p-6 bg-surface-50 min-height-screen">
+    <div className="min-h-screen">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-surface-900 tracking-tight">
+        <h1 className="text-3xl font-extrabold text-surface-900 dark:text-white tracking-tight">
           威胁情报可视化
         </h1>
-        <p className="mt-2 text-surface-500 text-lg">
+        <p className="mt-2 text-surface-500 dark:text-slate-400 text-lg">
           实时分析全球 CVE 漏洞趋势与分布特征
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* 1. Year Trend - Full Width */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft border border-surface-100">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-surface-800">CVE 数量年度趋势</h2>
-            <div className="px-3 py-1 bg-primary-50 text-primary-600 rounded-full text-sm font-medium">
-              2020 - 2026
+            <h2 className="text-xl font-bold text-surface-800 dark:text-white">CVE 数量年度趋势</h2>
+            <div className="px-3 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium">
+              1999 - 2026
             </div>
           </div>
           <div ref={yearChartRef} className="w-full h-[400px]" />
         </div>
 
-        {/* 2. Vulnerability Types - Full Width (Larger Canvas) */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft border border-surface-100">
-          <h2 className="text-xl font-bold text-surface-800 mb-6">漏洞类型分布</h2>
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
+          <h2 className="text-xl font-bold text-surface-800 dark:text-white mb-6">漏洞类型分布</h2>
           <div ref={vulnChartRef} className="w-full h-[500px]" />
         </div>
 
-        {/* 3. Product Distribution - Full Width */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl shadow-soft border border-surface-100">
-          <h2 className="text-xl font-bold text-surface-800 mb-6">Top 20 受影响产品分布</h2>
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
+          <h2 className="text-xl font-bold text-surface-800 dark:text-white mb-6">Top 20 受影响产品分布</h2>
           <div ref={productChartRef} className="w-full h-[800px]" />
         </div>
       </div>

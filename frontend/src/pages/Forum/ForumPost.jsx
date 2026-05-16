@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, Avatar, Tag, List, Input, message, Spin, Divider, Modal, Form } from 'antd';
-import { 
-  ArrowLeftOutlined, 
-  UserOutlined, 
-  LikeOutlined, 
+import {
+  ArrowLeftOutlined,
+  UserOutlined,
+  LikeOutlined,
   MessageOutlined,
   SendOutlined,
   EyeOutlined,
@@ -23,7 +23,7 @@ const ForumPost = () => {
   const [loading, setLoading] = useState(true);
   const [commentContent, setCommentContent] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  
+
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editForm] = Form.useForm();
   const [editor, setEditor] = useState(null);
@@ -59,10 +59,7 @@ const ForumPost = () => {
   };
 
   const handleLike = async () => {
-    if (!isLoggedIn) {
-      message.warning('请先登录');
-      return;
-    }
+    if (!isLoggedIn) { message.warning('请先登录'); return; }
     try {
       await forumAPI.likePost(id);
       message.success('点赞成功');
@@ -73,14 +70,8 @@ const ForumPost = () => {
   };
 
   const handleComment = async () => {
-    if (!isLoggedIn) {
-      message.warning('请先登录');
-      return;
-    }
-    if (!commentContent.trim()) {
-      message.warning('请输入评论内容');
-      return;
-    }
+    if (!isLoggedIn) { message.warning('请先登录'); return; }
+    if (!commentContent.trim()) { message.warning('请输入评论内容'); return; }
 
     setSubmitting(true);
     try {
@@ -105,10 +96,7 @@ const ForumPost = () => {
   };
 
   const handleEditSubmit = async (values) => {
-    if (!editor || editor.isEmpty()) {
-      message.warning('请输入帖子内容');
-      return;
-    }
+    if (!editor || editor.isEmpty()) { message.warning('请输入帖子内容'); return; }
 
     setEditLoading(true);
     try {
@@ -117,7 +105,6 @@ const ForumPost = () => {
         content: editHtml,
         tags: values.tags ? values.tags.split(',').map(tag => tag.trim()) : [],
       };
-
       await forumAPI.updatePost(id, postData);
       message.success('帖子更新成功');
       setIsEditModalVisible(false);
@@ -161,10 +148,8 @@ const ForumPost = () => {
   if (!post) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500">帖子不存在</p>
-        <Button onClick={() => navigate('/forum')} className="mt-4">
-          返回论坛
-        </Button>
+        <p className="text-gray-500 dark:text-slate-400">帖子不存在</p>
+        <Button onClick={() => navigate('/forum')} className="mt-4">返回论坛</Button>
       </div>
     );
   }
@@ -172,61 +157,49 @@ const ForumPost = () => {
   return (
     <div>
       <div className="flex items-center gap-4 mb-6">
-        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/forum')}>
-          返回
-        </Button>
-        <h1 className="text-2xl font-bold">帖子详情</h1>
+        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/forum')}>返回</Button>
+        <h1 className="text-2xl font-bold dark:text-white">帖子详情</h1>
         {canEdit && (
-          <Button 
-            type="primary" 
-            icon={<EditOutlined />} 
-            onClick={handleEditClick}
-            className="ml-auto"
-          >
+          <Button type="primary" icon={<EditOutlined />} onClick={handleEditClick} className="ml-auto">
             编辑
           </Button>
         )}
       </div>
 
       {/* 帖子内容 */}
-      <Card className="mb-6">
+      <Card className="mb-6 dark:bg-slate-800 dark:border-slate-700">
         <div className="flex items-start gap-4">
-          <Avatar 
-            icon={<UserOutlined />} 
+          <Avatar
+            icon={<UserOutlined />}
             src={post.User?.avatar}
-            className="bg-gradient-to-br from-blue-500 to-indigo-600"
+            className="bg-gradient-to-br from-primary-500 to-primary-700"
           />
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <span className="font-medium text-lg">{post.User?.username || '匿名用户'}</span>
-              <span className="text-gray-400 text-sm">
+              <span className="font-medium text-lg dark:text-white">{post.User?.username || '匿名用户'}</span>
+              <span className="text-gray-400 dark:text-slate-500 text-sm">
                 {new Date(post.createdAt).toLocaleString()}
               </span>
             </div>
-            <h2 className="text-xl font-bold mb-4">{post.title}</h2>
-            <div 
-              className="text-gray-700 mb-4 forum-content"
+            <h2 className="text-xl font-bold mb-4 dark:text-white">{post.title}</h2>
+            <div
+              className="text-gray-700 dark:text-slate-300 mb-4 forum-content"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
-            
+
             {post.tags && post.tags.length > 0 && (
               <div className="flex gap-2 mb-4">
                 {post.tags.map((tag, index) => (
-                  <Tag key={index} color="blue">{tag}</Tag>
+                  <Tag key={index} color="green">{tag}</Tag>
                 ))}
               </div>
             )}
 
-            <div className="flex items-center gap-6 text-gray-500">
+            <div className="flex items-center gap-6 text-gray-500 dark:text-slate-400">
               <span className="flex items-center gap-1">
                 <EyeOutlined /> {post.views || 0}
               </span>
-              <Button 
-                type="link" 
-                icon={<LikeOutlined />}
-                onClick={handleLike}
-                className="flex items-center gap-1"
-              >
+              <Button type="link" icon={<LikeOutlined />} onClick={handleLike} className="flex items-center gap-1">
                 {post.likes || 0}
               </Button>
               <span className="flex items-center gap-1">
@@ -238,12 +211,11 @@ const ForumPost = () => {
       </Card>
 
       {/* 评论区 */}
-      <Card>
+      <Card className="dark:bg-slate-800 dark:border-slate-700">
         <Divider orientation="left">
           <MessageOutlined /> 评论 ({post.Comments?.length || 0})
         </Divider>
 
-        {/* 评论输入 */}
         {isLoggedIn ? (
           <div className="mb-6">
             <TextArea
@@ -253,25 +225,17 @@ const ForumPost = () => {
               onChange={(e) => setCommentContent(e.target.value)}
               className="mb-3"
             />
-            <Button 
-              type="primary" 
-              icon={<SendOutlined />}
-              onClick={handleComment}
-              loading={submitting}
-            >
+            <Button type="primary" icon={<SendOutlined />} onClick={handleComment} loading={submitting}>
               发表评论
             </Button>
           </div>
         ) : (
-          <div className="bg-gray-50 p-4 rounded-lg text-center mb-6">
-            <p className="text-gray-500 mb-2">登录后才能发表评论</p>
-            <Button type="primary" onClick={() => navigate('/login')}>
-              去登录
-            </Button>
+          <div className="bg-gray-50 dark:bg-slate-700 p-4 rounded-lg text-center mb-6">
+            <p className="text-gray-500 dark:text-slate-400 mb-2">登录后才能发表评论</p>
+            <Button type="primary" onClick={() => navigate('/login')}>去登录</Button>
           </div>
         )}
 
-        {/* 评论列表 */}
         <List
           itemLayout="horizontal"
           dataSource={post.Comments || []}
@@ -279,22 +243,22 @@ const ForumPost = () => {
             <List.Item>
               <List.Item.Meta
                 avatar={
-                  <Avatar 
+                  <Avatar
                     icon={<UserOutlined />}
                     src={comment.User?.avatar}
-                    className="bg-gradient-to-br from-blue-500 to-indigo-600"
+                    className="bg-gradient-to-br from-primary-500 to-primary-700"
                   />
                 }
                 title={
                   <div className="flex items-center gap-2">
-                    <span className="font-medium">{comment.User?.username || '匿名用户'}</span>
-                    <span className="text-gray-400 text-xs">
+                    <span className="font-medium dark:text-white">{comment.User?.username || '匿名用户'}</span>
+                    <span className="text-gray-400 dark:text-slate-500 text-xs">
                       {new Date(comment.createdAt).toLocaleString()}
                     </span>
                   </div>
                 }
                 description={
-                  <div className="text-gray-700 mt-1">
+                  <div className="text-gray-700 dark:text-slate-300 mt-1">
                     {comment.content}
                   </div>
                 }
@@ -314,25 +278,13 @@ const ForumPost = () => {
         destroyOnClose
       >
         <Form form={editForm} onFinish={handleEditSubmit} layout="vertical">
-          <Form.Item
-            name="title"
-            label="标题"
-            rules={[{ required: true, message: '请输入标题' }]}
-          >
+          <Form.Item name="title" label="标题" rules={[{ required: true, message: '请输入标题' }]}>
             <Input placeholder="输入帖子标题" />
           </Form.Item>
 
-          <Form.Item
-            label="内容"
-            required
-          >
+          <Form.Item label="内容" required>
             <div style={{ border: '1px solid #ccc', zIndex: 100 }}>
-              <Toolbar
-                editor={editor}
-                defaultConfig={toolbarConfig}
-                mode="default"
-                style={{ borderBottom: '1px solid #ccc' }}
-              />
+              <Toolbar editor={editor} defaultConfig={toolbarConfig} mode="default" style={{ borderBottom: '1px solid #ccc' }} />
               <Editor
                 defaultConfig={editorConfig}
                 value={editHtml}
@@ -349,12 +301,7 @@ const ForumPost = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button 
-              type="primary" 
-              htmlType="submit" 
-              className="w-full"
-              loading={editLoading}
-            >
+            <Button type="primary" htmlType="submit" className="w-full" loading={editLoading}>
               保存修改
             </Button>
           </Form.Item>

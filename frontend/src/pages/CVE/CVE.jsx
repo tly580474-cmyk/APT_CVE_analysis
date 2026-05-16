@@ -45,8 +45,7 @@ const CVE = () => {
 
   useEffect(() => {
     fetchCVEs(pagination.current, pagination.pageSize);
-    
-    // 获取统计数据
+
     const fetchStats = async () => {
       try {
         const response = await cveAPI.getStats();
@@ -71,7 +70,6 @@ const CVE = () => {
   const handleViewDetail = (record) => {
     setSelectedCVE(record);
     setDetailModalVisible(true);
-    // 这里可以调用API获取更详细的CVE信息
     fetchCVEDetail(record.id);
   };
 
@@ -82,7 +80,6 @@ const CVE = () => {
       setSelectedCVE(response.data);
     } catch (error) {
       console.error('获取CVE详情失败:', error);
-      // 如果API调用失败，保持列表中的基本数据
     } finally {
       setDetailLoading(false);
     }
@@ -94,7 +91,13 @@ const CVE = () => {
   };
 
   const columns = [
-    { title: 'CVE ID', dataIndex: 'id', key: 'id', width: 150 },
+    {
+      title: 'CVE ID',
+      dataIndex: 'id',
+      key: 'id',
+      width: 150,
+      render: (id) => <span className="font-mono font-bold text-primary-600 dark:text-primary-400">{id}</span>,
+    },
     { title: '标题', dataIndex: 'title', key: 'title' },
     {
       title: '严重程度',
@@ -113,9 +116,9 @@ const CVE = () => {
       key: 'action',
       width: 120,
       render: (_, record) => (
-        <Button 
-          type="link" 
-          size="small" 
+        <Button
+          type="link"
+          size="small"
           icon={<EyeOutlined />}
           onClick={() => handleViewDetail(record)}
         >
@@ -127,52 +130,52 @@ const CVE = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">CVE漏洞信息</h1>
+      <h1 className="text-2xl font-bold mb-6 dark:text-white">CVE漏洞信息</h1>
 
       <Row gutter={16} className="mb-6">
-        <Col span={6}>
-          <Card>
+        <Col xs={12} sm={6}>
+          <Card className="dark:bg-slate-800 dark:border-slate-700">
             <Statistic
-              title="总漏洞数"
+              title={<span className="dark:text-slate-400">总漏洞数</span>}
               value={stats.total}
               prefix={<BugOutlined />}
-              valueStyle={{ color: '#1890ff' }}
+              valueStyle={{ color: '#059669', fontFamily: "'JetBrains Mono', monospace" }}
             />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
+        <Col xs={12} sm={6}>
+          <Card className="dark:bg-slate-800 dark:border-slate-700">
             <Statistic
-              title="严重漏洞"
+              title={<span className="dark:text-slate-400">严重漏洞</span>}
               value={stats.critical}
               prefix={<WarningOutlined />}
-              valueStyle={{ color: '#ff4d4f' }}
+              valueStyle={{ color: '#ef4444', fontFamily: "'JetBrains Mono', monospace" }}
             />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
+        <Col xs={12} sm={6}>
+          <Card className="dark:bg-slate-800 dark:border-slate-700">
             <Statistic
-              title="高危漏洞"
+              title={<span className="dark:text-slate-400">高危漏洞</span>}
               value={stats.high}
               prefix={<WarningOutlined />}
-              valueStyle={{ color: '#faad14' }}
+              valueStyle={{ color: '#f59e0b', fontFamily: "'JetBrains Mono', monospace" }}
             />
           </Card>
         </Col>
-        <Col span={6}>
-          <Card>
+        <Col xs={12} sm={6}>
+          <Card className="dark:bg-slate-800 dark:border-slate-700">
             <Statistic
-              title="中危漏洞"
+              title={<span className="dark:text-slate-400">中危漏洞</span>}
               value={stats.medium}
               prefix={<SafetyOutlined />}
-              valueStyle={{ color: '#52c41a' }}
+              valueStyle={{ color: '#10b981', fontFamily: "'JetBrains Mono', monospace" }}
             />
           </Card>
         </Col>
       </Row>
 
-      <Card className="mb-6">
+      <Card className="mb-6 dark:bg-slate-800 dark:border-slate-700">
         <Input.Search
           placeholder="搜索CVE ID或标题"
           value={searchText}
@@ -185,7 +188,7 @@ const CVE = () => {
         />
       </Card>
 
-      <Card>
+      <Card className="dark:bg-slate-800 dark:border-slate-700">
         <Table
           columns={columns}
           dataSource={cveData}
@@ -196,11 +199,10 @@ const CVE = () => {
         />
       </Card>
 
-      {/* CVE详情弹窗 */}
       <Modal
         title={
           <div className="flex items-center gap-2">
-            <BugOutlined className="text-blue-500" />
+            <BugOutlined className="text-primary-600" />
             <span>CVE详情</span>
           </div>
         }
@@ -218,12 +220,12 @@ const CVE = () => {
           <div>
             <Descriptions bordered column={1} className="mb-4">
               <Descriptions.Item label="CVE ID">
-                <span className="font-mono text-lg font-bold text-blue-600">
+                <span className="font-mono text-lg font-bold text-primary-600 dark:text-primary-400">
                   {selectedCVE.id}
                 </span>
               </Descriptions.Item>
               <Descriptions.Item label="严重程度">
-                <Tag 
+                <Tag
                   color={
                     selectedCVE.severity === 'Critical' ? 'red' :
                     selectedCVE.severity === 'High' ? 'orange' :
@@ -243,8 +245,8 @@ const CVE = () => {
             </Descriptions>
 
             <Divider orientation="left">描述信息</Divider>
-            <div className="bg-gray-50 p-4 rounded-lg">
-              <p className="text-gray-700 leading-relaxed">
+            <div className="bg-gray-50 dark:bg-slate-700 p-4 rounded-lg">
+              <p className="text-gray-700 dark:text-slate-300 leading-relaxed">
                 {selectedCVE.description || '暂无描述信息'}
               </p>
             </div>
@@ -252,8 +254,8 @@ const CVE = () => {
             {selectedCVE.title && selectedCVE.title !== selectedCVE.id && (
               <>
                 <Divider orientation="left">标题</Divider>
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-blue-800">{selectedCVE.title}</p>
+                <div className="bg-primary-50 dark:bg-primary-900/20 p-4 rounded-lg">
+                  <p className="text-primary-800 dark:text-primary-300">{selectedCVE.title}</p>
                 </div>
               </>
             )}

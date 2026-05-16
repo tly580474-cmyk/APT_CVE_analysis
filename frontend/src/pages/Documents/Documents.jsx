@@ -12,8 +12,7 @@ const Documents = () => {
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
-  
-  // Editor state
+
   const [editor, setEditor] = useState(null);
   const [html, setHtml] = useState('');
 
@@ -30,7 +29,6 @@ const Documents = () => {
       const response = await documentAPI.getAll();
       setDocuments(response.data);
     } catch (error) {
-      console.error('获取文档列表失败:', error);
       message.error('获取文档列表失败');
     } finally {
       setLoading(false);
@@ -41,9 +39,8 @@ const Documents = () => {
     fetchDocuments();
   }, []);
 
-  // Editor configuration
   const toolbarConfig = {
-    excludeKeys: ['video', 'insertVideo'] // 移除视频功能
+    excludeKeys: ['video', 'insertVideo']
   };
 
   const editorConfig = {
@@ -76,17 +73,17 @@ const Documents = () => {
   const columns = [
     { title: 'ID', dataIndex: 'id', key: 'id', width: 80 },
     { title: '标题', dataIndex: 'title', key: 'title' },
-    { 
-      title: '作者', 
-      dataIndex: ['User', 'username'], 
-      key: 'author', 
+    {
+      title: '作者',
+      dataIndex: ['User', 'username'],
+      key: 'author',
       width: 120,
       render: (text) => text || '未知'
     },
-    { 
-      title: '日期', 
-      dataIndex: 'createdAt', 
-      key: 'date', 
+    {
+      title: '日期',
+      dataIndex: 'createdAt',
+      key: 'date',
       width: 180,
       render: (date) => new Date(date).toLocaleString()
     },
@@ -175,7 +172,7 @@ const Documents = () => {
     try {
       const values = await form.validateFields();
       const data = { ...values, content: html };
-      
+
       if (currentDoc) {
         await documentAPI.update(currentDoc.id, data);
         message.success('更新成功');
@@ -186,27 +183,21 @@ const Documents = () => {
       setIsEditModalVisible(false);
       fetchDocuments();
     } catch (error) {
-      console.error('保存失败:', error);
       message.error('保存失败');
     }
   };
 
   return (
-    <div className="p-6">
+    <div>
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">文档管理</h1>
+        <h1 className="text-2xl font-bold dark:text-white">文档管理</h1>
         {JSON.parse(localStorage.getItem('user'))?.role === 'admin' && (
           <Button type="primary" icon={<PlusOutlined />} onClick={handleCreate}>新建文档</Button>
         )}
       </div>
 
-      <Card>
-        <Table
-          columns={columns}
-          dataSource={documents}
-          rowKey="id"
-          loading={loading}
-        />
+      <Card className="dark:bg-slate-800 dark:border-slate-700">
+        <Table columns={columns} dataSource={documents} rowKey="id" loading={loading} />
       </Card>
 
       {/* View Modal */}
@@ -214,15 +205,13 @@ const Documents = () => {
         title="文档详情"
         open={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
-        footer={[
-          <Button key="close" onClick={() => setIsModalVisible(false)}>关闭</Button>,
-        ]}
+        footer={[<Button key="close" onClick={() => setIsModalVisible(false)}>关闭</Button>]}
         width={1000}
       >
         {currentDoc && (
           <div>
             <h2 className="text-2xl font-bold mb-4">{currentDoc.title}</h2>
-            <div className="mb-4 flex gap-4">
+            <div className="mb-4 flex gap-4 flex-wrap">
               <span><strong>作者：</strong>{currentDoc.User?.username || '未知'}</span>
               <span><strong>日期：</strong>{new Date(currentDoc.createdAt).toLocaleString()}</span>
               <span><strong>威胁等级：</strong>
@@ -231,8 +220,8 @@ const Documents = () => {
                 </Tag>
               </span>
             </div>
-            <div 
-              className="border p-6 rounded bg-white min-h-[400px] overflow-auto"
+            <div
+              className="border p-6 rounded bg-white dark:bg-slate-700 dark:border-slate-600 min-h-[400px] overflow-auto"
               dangerouslySetInnerHTML={{ __html: currentDoc.content }}
             />
           </div>
@@ -263,8 +252,8 @@ const Documents = () => {
               </Select>
             </Form.Item>
           </div>
-          
-          <div className="border border-gray-300 rounded overflow-hidden">
+
+          <div className="border border-gray-300 dark:border-slate-600 rounded overflow-hidden">
             <Toolbar editor={editor} defaultConfig={toolbarConfig} mode="default" style={{ borderBottom: '1px solid #ccc' }} />
             <Editor
               defaultConfig={editorConfig}

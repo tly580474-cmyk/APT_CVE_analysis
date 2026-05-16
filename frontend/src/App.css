@@ -1,9 +1,3 @@
-/* App specific styles */
 .ant-layout {
   min-height: 100vh;
-}
-
-.ant-layout-content {
-  padding: 24px;
-  background: #f0f2f5;
 }

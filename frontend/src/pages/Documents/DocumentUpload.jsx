@@ -21,15 +21,13 @@ const DocumentUpload = () => {
     setLoading(true);
     try {
       let response;
-      
+
       if (fileList.length > 0) {
-        // 文件上传
         const formData = new FormData();
         formData.append('file', fileList[0].originFileObj);
         formData.append('title', values.title);
         response = await documentAPI.upload(formData);
       } else {
-        // 文本内容上传
         response = await documentAPI.create({
           title: values.title,
           content: values.content,
@@ -46,9 +44,7 @@ const DocumentUpload = () => {
   };
 
   const uploadProps = {
-    onRemove: () => {
-      setFileList([]);
-    },
+    onRemove: () => setFileList([]),
     beforeUpload: (file) => {
       setFileList([{ originFileObj: file, name: file.name }]);
       return false;
@@ -59,13 +55,11 @@ const DocumentUpload = () => {
   return (
     <div>
       <div className="flex items-center gap-4 mb-6">
-        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/documents')}>
-          返回
-        </Button>
-        <h1 className="text-2xl font-bold">上传文档</h1>
+        <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/documents')}>返回</Button>
+        <h1 className="text-2xl font-bold dark:text-white">上传文档</h1>
       </div>
 
-      <Card className="max-w-2xl">
+      <Card className="max-w-2xl dark:bg-slate-800 dark:border-slate-700">
         <Alert
           message="提示"
           description="您可以上传文件或直接输入文本内容。支持 PDF、Word、TXT 等格式。"
@@ -74,17 +68,8 @@ const DocumentUpload = () => {
           className="mb-6"
         />
 
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleUpload}
-          initialValues={{ title: '' }}
-        >
-          <Form.Item
-            name="title"
-            label="文档标题"
-            rules={[{ required: true, message: '请输入文档标题' }]}
-          >
+        <Form form={form} layout="vertical" onFinish={handleUpload} initialValues={{ title: '' }}>
+          <Form.Item name="title" label="文档标题" rules={[{ required: true, message: '请输入文档标题' }]}>
             <Input placeholder="请输入文档标题" prefix={<FileTextOutlined />} />
           </Form.Item>
 
@@ -92,30 +77,19 @@ const DocumentUpload = () => {
             <Upload {...uploadProps} maxCount={1}>
               <Button icon={<UploadOutlined />}>选择文件</Button>
             </Upload>
-            <p className="text-gray-400 text-sm mt-2">
+            <p className="text-gray-400 dark:text-slate-500 text-sm mt-2">
               支持 PDF、DOC、DOCX、TXT 格式，最大 10MB
             </p>
           </Form.Item>
 
-          <Form.Item
-            name="content"
-            label="或输入文本内容"
-          >
-            <TextArea
-              rows={10}
-              placeholder="在此输入文档内容..."
-              disabled={fileList.length > 0}
-            />
+          <Form.Item name="content" label="或输入文本内容">
+            <TextArea rows={10} placeholder="在此输入文档内容..." disabled={fileList.length > 0} />
           </Form.Item>
 
           <Form.Item>
             <div className="flex gap-4">
-              <Button type="primary" htmlType="submit" loading={loading}>
-                上传文档
-              </Button>
-              <Button onClick={() => navigate('/documents')}>
-                取消
-              </Button>
+              <Button type="primary" htmlType="submit" loading={loading}>上传文档</Button>
+              <Button onClick={() => navigate('/documents')}>取消</Button>
             </div>
           </Form.Item>
         </Form>
