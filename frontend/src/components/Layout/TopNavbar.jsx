@@ -1,9 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Input, Avatar, Dropdown, Badge } from 'antd';
+import { Avatar, Dropdown } from 'antd';
 import {
   SearchOutlined,
-  BellOutlined,
   UserOutlined,
   LogoutOutlined,
   SettingOutlined,
@@ -74,13 +73,6 @@ const TopNavbar = () => {
           ) : (
             <MoonOutlined className="text-gray-500 text-base" />
           )}
-        </button>
-
-        {/* Notifications */}
-        <button className="p-2 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer">
-          <Badge count={3} size="small">
-            <BellOutlined className="text-gray-500 dark:text-slate-400 text-base" />
-          </Badge>
         </button>
 
         {/* User area */}

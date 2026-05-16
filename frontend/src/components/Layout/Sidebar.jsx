@@ -9,7 +9,7 @@ import {
   MessageOutlined,
   UserOutlined,
   SettingOutlined,
-  BulbOutlined,
+  SafetyOutlined,
   MoonOutlined,
   SunOutlined,
 } from '@ant-design/icons';
@@ -62,7 +62,7 @@ const Sidebar = () => {
       {/* Logo */}
       <div className="h-16 flex items-center justify-center border-b border-gray-200 dark:border-slate-700">
         <div className="w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
-          <BulbOutlined className="text-white text-sm" />
+          <SafetyOutlined className="text-white text-sm" />
         </div>
       </div>
 
