@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ConfigProvider, theme } from 'antd';
 import zhCN from 'antd/locale/zh_CN';
 import { DarkModeProvider, useDarkMode } from './contexts/DarkModeContext';
+import { SidebarProvider } from './contexts/SidebarContext';
 import Layout from './components/Layout/Layout';
 import { PrivateRoute, AdminRoute, PublicRoute } from './components/Auth/PrivateRoute';
 import Home from './pages/Home/Home';
@@ -103,7 +104,9 @@ const AppContent = () => {
 function App() {
   return (
     <DarkModeProvider>
-      <AppContent />
+      <SidebarProvider>
+        <AppContent />
+      </SidebarProvider>
     </DarkModeProvider>
   );
 }

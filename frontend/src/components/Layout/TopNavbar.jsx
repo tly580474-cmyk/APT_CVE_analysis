@@ -42,7 +42,7 @@ const TopNavbar = () => {
   };
 
   return (
-    <header className="fixed top-0 right-0 left-0 md:left-16 h-16 z-40 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-4 md:px-6 transition-colors duration-200">
+    <header className="fixed top-0 right-0 left-0 md:left-[var(--sidebar-width,64px)] h-16 z-40 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl border-b border-gray-200 dark:border-slate-700 flex items-center justify-between px-4 md:px-6 transition-[left] duration-200 ease-in-out">
       {/* Left: Search */}
       <div className="hidden md:flex items-center bg-gray-50 dark:bg-slate-700 px-3 py-2 rounded-lg border border-gray-200 dark:border-slate-600 w-80">
         <SearchOutlined className="text-gray-400 dark:text-slate-400 mr-2" />

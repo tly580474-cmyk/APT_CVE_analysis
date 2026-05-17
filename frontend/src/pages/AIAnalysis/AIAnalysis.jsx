@@ -241,7 +241,7 @@ const AIAnalysis = () => {
                     <div
                       className="whitespace-pre-wrap font-mono text-sm leading-relaxed overflow-auto"
                       style={{
-                        backgroundColor: isDark ? '#1e293b' : '#f5f5f5',
+                        backgroundColor: isDark ? '#17181A' : '#f5f5f5',
                         padding: '12px',
                         borderRadius: '4px',
                         maxHeight: '300px',
@@ -308,7 +308,7 @@ const AIAnalysis = () => {
               ref={resultRef}
               className="prose max-w-none"
               style={{
-                backgroundColor: isDark ? '#1e293b' : '#fafafa',
+                backgroundColor: isDark ? '#17181A' : '#fafafa',
                 padding: '16px',
                 borderRadius: '8px',
                 minHeight: '200px',
@@ -353,12 +353,12 @@ const AIAnalysis = () => {
           background-color: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(27,31,35,0.05)'};
           border-radius: 3px; font-family: 'JetBrains Mono', Consolas, monospace;
         }
-        .markdown-body pre { margin: 0 0 16px 0; padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: #1e1e1e; border-radius: 6px; }
+        .markdown-body pre { margin: 0 0 16px 0; padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: #17181A; border-radius: 6px; }
         .markdown-body pre code { padding: 0; margin: 0; background-color: transparent; border: 0; font-size: 100%; }
         .markdown-body table { border-collapse: collapse; margin: 0 0 16px 0; width: 100%; }
         .markdown-body table th, .markdown-body table td { padding: 6px 13px; border: 1px solid ${isDark ? '#334155' : '#dfe2e5'}; }
-        .markdown-body table th { font-weight: 600; background-color: ${isDark ? '#1e293b' : '#f6f8fa'}; }
-        .markdown-body table tr:nth-child(2n) { background-color: ${isDark ? '#0f172a' : '#f6f8fa'}; }
+        .markdown-body table th { font-weight: 600; background-color: ${isDark ? '#17181A' : '#f6f8fa'}; }
+        .markdown-body table tr:nth-child(2n) { background-color: ${isDark ? '#17181A' : '#f6f8fa'}; }
         .markdown-body .table-wrapper { overflow-x: auto; margin: 0 0 16px 0; }
         .markdown-body hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: ${isDark ? '#334155' : '#e1e4e8'}; border: 0; }
         .markdown-body a { color: #059669; text-decoration: none; }

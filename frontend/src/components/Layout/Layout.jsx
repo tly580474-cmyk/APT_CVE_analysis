@@ -16,7 +16,7 @@ const Layout = () => {
       </div>
 
       {/* Main content area */}
-      <AntLayout className="md:ml-16 transition-all duration-300">
+      <AntLayout className="md:ml-[var(--sidebar-width,64px)] transition-[margin] duration-200 ease-in-out">
         {/* Top navbar */}
         <TopNavbar />
 

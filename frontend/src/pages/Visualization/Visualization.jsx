@@ -14,12 +14,13 @@ const Visualization = () => {
   const { isDark } = useDarkMode();
 
   const colors = [
-    '#059669', '#10b981', '#34d399', '#6ee7b7',
-    '#f59e0b', '#ef4444', '#06b6d4', '#8b5cf6'
+    '#5470c6', '#91cc75', '#fac858', '#ee6666',
+    '#73c0de', '#3ba272', '#fc8452', '#9a60b4',
+    '#ea7ccc', '#48b8d0', '#f5a623', '#7c5295'
   ];
 
   const getTooltipStyle = () => ({
-    backgroundColor: isDark ? '#1e293b' : 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: isDark ? '#17181A' : 'rgba(255, 255, 255, 0.9)',
     borderRadius: 8,
     padding: 12,
     textStyle: { color: isDark ? '#e2e8f0' : '#1e293b' },
@@ -81,12 +82,18 @@ const Visualization = () => {
 
     // 1. Year Trend Chart
     const yearChart = echarts.init(yearChartRef.current);
+    const yearValues = Object.values(data.yearData);
+    const years = Object.keys(data.yearData);
+    const seriesData = yearValues.map((value, index) => ({
+      value,
+      itemStyle: { color: value < 5000 ? '#10b981' : value < 10000 ? '#f59e0b' : value < 20000 ? '#ef4444' : '#7c5295' }
+    }));
     yearChart.setOption({
       ...commonChartOptions,
       tooltip: { trigger: 'axis', ...getTooltipStyle() },
       xAxis: {
         type: 'category',
-        data: Object.keys(data.yearData),
+        data: years,
         axisLine: { lineStyle: { color: isDark ? '#334155' : '#e2e8f0' } },
         axisLabel: { color: isDark ? '#94a3b8' : '#64748b', margin: 15 }
       },
@@ -96,17 +103,16 @@ const Visualization = () => {
         axisLabel: { color: isDark ? '#94a3b8' : '#64748b' }
       },
       series: [{
-        data: Object.values(data.yearData),
+        data: seriesData,
         type: 'line',
         smooth: true,
         symbol: 'circle',
-        symbolSize: 8,
-        itemStyle: { color: '#059669' },
-        lineStyle: { width: 4 },
+        symbolSize: 10,
+        lineStyle: { width: 4, color: '#10b981' },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(5, 150, 105, 0.2)' },
-            { offset: 1, color: 'rgba(5, 150, 105, 0)' }
+            { offset: 0, color: 'rgba(16, 185, 129, 0.3)' },
+            { offset: 1, color: 'rgba(16, 185, 129, 0)' }
           ])
         }
       }]
@@ -163,6 +169,8 @@ const Visualization = () => {
       .map(([name, value]) => ({ name, value }))
       .sort((a, b) => a.value - b.value)
       .slice(-20);
+    const maxProductValue = Math.max(...productData.map(item => item.value));
+    const minProductValue = Math.min(...productData.map(item => item.value));
 
     productChart.setOption({
       ...commonChartOptions,
@@ -185,16 +193,20 @@ const Visualization = () => {
         axisLabel: { color: isDark ? '#e2e8f0' : '#1e293b', fontWeight: 500 }
       },
       series: [{
-        data: productData.map(item => item.value),
+        data: productData.map(item => ({
+          value: item.value,
+          itemStyle: {
+            borderRadius: [0, 4, 4, 0],
+            color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
+              { offset: 0, color: item.value < (maxProductValue * 0.33) ? '#10b981' :
+                             item.value < (maxProductValue * 0.66) ? '#f59e0b' : '#ef4444' },
+              { offset: 1, color: item.value < (maxProductValue * 0.33) ? '#34d399' :
+                             item.value < (maxProductValue * 0.66) ? '#fbbf24' : '#fca5a5' }
+            ])
+          }
+        })),
         type: 'bar',
-        barWidth: '60%',
-        itemStyle: {
-          borderRadius: [0, 4, 4, 0],
-          color: new echarts.graphic.LinearGradient(1, 0, 0, 0, [
-            { offset: 0, color: '#059669' },
-            { offset: 1, color: '#34d399' }
-          ])
-        }
+        barWidth: '60%'
       }]
     });
     instances.push(productChart);

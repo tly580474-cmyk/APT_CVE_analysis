@@ -17,16 +17,16 @@
 
 /* Dark mode Ant Design overrides */
 .dark .ant-layout {
-  background: #0f172a !important;
+  background: #17181A !important;
 }
 
 .dark .ant-layout-footer {
-  background: #1e293b !important;
+  background: #17181A !important;
 }
 
 /* WangEditor dark mode overrides */
 .dark .w-e-toolbar {
-  background-color: #1e293b !important;
+  background-color: #17181A !important;
   border-color: #334155 !important;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .dark .w-e-text-container {
-  background-color: #0f172a !important;
+  background-color: #17181A !important;
   border-color: #334155 !important;
   color: #e2e8f0 !important;
 }
@@ -51,13 +51,13 @@
 
 /* Ant Design dark mode table fix */
 .dark .ant-table {
-  background: #1e293b !important;
+  background: #17181A !important;
 }
 
 .dark .ant-modal-content {
-  background: #1e293b !important;
+  background: #17181A !important;
 }
 
 .dark .ant-modal-header {
-  background: #1e293b !important;
+  background: #17181A !important;
 }
