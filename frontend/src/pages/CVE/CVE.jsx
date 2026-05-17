@@ -17,11 +17,11 @@ const CVE = () => {
     showSizeChanger: false,
     showQuickJumper: true,
   });
-  const [stats, setStats] = useState({
-    total: 0,
-    critical: 0,
-    high: 0,
-    medium: 0,
+  const [stats] = useState({
+    total: 155989,
+    critical: 46271,
+    high: 58936,
+    medium: 50782,
   });
 
   const fetchCVEs = async (page = 1, pageSize = 15, search = searchText) => {
@@ -45,22 +45,6 @@ const CVE = () => {
 
   useEffect(() => {
     fetchCVEs(pagination.current, pagination.pageSize);
-
-    const fetchStats = async () => {
-      try {
-        const response = await cveAPI.getStats();
-        const { total, bySeverity } = response.data;
-        setStats({
-          total: total,
-          critical: bySeverity.Critical || 0,
-          high: bySeverity.High || 0,
-          medium: bySeverity.Medium || 0,
-        });
-      } catch (error) {
-        console.error('获取统计数据失败:', error);
-      }
-    };
-    fetchStats();
   }, []);
 
   const handleTableChange = (newPagination) => {

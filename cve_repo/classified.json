@@ -1,0 +1,442 @@
+{
+  "CVE-2025-9999": {
+    "id": "CVE-2025-9999",
+    "severity": "Critical",
+    "product": "PcVue",
+    "version": "12.0.0 ",
+    "cwe": "CWE-1288 Improper Validation of Consistency within Input",
+    "description": "Some payload elements of the messages sent between two stations in a networking architecture are not properly checked on the receiving station allowing an attacker to execute unauthorized commands in the application."
+  },
+  "CVE-2025-9998": {
+    "id": "CVE-2025-9998",
+    "severity": "High",
+    "product": "PcVue",
+    "version": "12.0.0 ",
+    "cwe": "CWE-754 Improper Check for Unusual or Exceptional Conditions",
+    "description": "The sequence of packets received by a Networking server are not correctly checked.An attacker could exploit this vulnerability to send specially crafted messages to force the application to stop."
+  },
+  "CVE-2025-9994": {
+    "id": "CVE-2025-9994",
+    "severity": "High",
+    "product": "BT-AP 111",
+    "version": "* ",
+    "cwe": "CWE-287 Improper Authentication",
+    "description": "The Amp’ed RF BT-AP 111 Bluetooth access point's HTTP admin interface does not have an authentication feature, allowing unauthorized access to anyone with network access."
+  },
+  "CVE-2025-9993": {
+    "id": "CVE-2025-9993",
+    "severity": "High",
+    "product": "Bei Fen – WordPress Backup Plugin",
+    "version": "* ",
+    "cwe": "CWE-98 Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion')",
+    "description": "The Bei Fen – WordPress Backup Plugin plugin for WordPress is vulnerable to Local File Inclusion in all versions up to, and including, 1.4.2 via the 'task'. This makes it possible for authenticated attackers, with Subscriber-level access and above, to include and execute arbitrary .php files on the server, allowing the execution of any PHP code in those files. This can be used to bypass access controls, obtain sensitive data, or achieve code execution in cases where .php file types can be uploaded and included. This only affects instances running PHP 7.1 or older."
+  },
+  "CVE-2025-9991": {
+    "id": "CVE-2025-9991",
+    "severity": "Critical",
+    "product": "Tiny Bootstrap Elements Light",
+    "version": "* ",
+    "cwe": "CWE-98 Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion')",
+    "description": "The Tiny Bootstrap Elements Light plugin for WordPress is vulnerable to Local File Inclusion in all versions up to, and including, 4.3.34 via the 'language' parameter. This makes it possible for unauthenticated attackers to include and execute arbitrary .php files on the server, allowing the execution of any PHP code in those files. This can be used to bypass access controls, obtain sensitive data, or achieve code execution in cases where .php file types can be uploaded and included."
+  },
+  "CVE-2025-9985": {
+    "id": "CVE-2025-9985",
+    "severity": "Medium",
+    "product": "Featured Image from URL (FIFU)",
+    "version": "* ",
+    "cwe": "CWE-532 Insertion of Sensitive Information into Log File",
+    "description": "The Featured Image from URL (FIFU) plugin for WordPress is vulnerable to Sensitive Information Exposure in all versions up to, and including, 5.2.7 through publicly exposed log files. This makes it possible for unauthenticated attackers to view potentially sensitive information contained in the exposed log files."
+  },
+  "CVE-2025-9984": {
+    "id": "CVE-2025-9984",
+    "severity": "Medium",
+    "product": "Featured Image from URL (FIFU)",
+    "version": "* ",
+    "cwe": "CWE-862 Missing Authorization",
+    "description": "The Featured Image from URL (FIFU) plugin for WordPress is vulnerable to unauthorized access of data due to a missing capability check on the fifu_api_debug_posts() function in all versions up to, and including, 5.2.7. This makes it possible for unauthenticated attackers to read private/password protected posts."
+  },
+  "CVE-2025-9983": {
+    "id": "CVE-2025-9983",
+    "severity": "Medium",
+    "product": "G2",
+    "version": "11.100001.01.28 ",
+    "cwe": "CWE-306 Missing Authentication for Critical Function",
+    "description": "GALAYOU G2 cameras stream video output via RTSP streams. By default these streams are protected by randomly generated credentials. However these credentials are not required to access the stream. Changing these values does not change camera's behavior.The vendor did not respond in any way. Only version 11.100001.01.28 was tested, other versions might also be vulnerable."
+  },
+  "CVE-2025-9978": {
+    "id": "CVE-2025-9978",
+    "severity": "Medium",
+    "product": "Jeg Kit for Elementor",
+    "version": "0 ",
+    "cwe": "CWE-79 Cross-Site Scripting (XSS)",
+    "description": "The Jeg Kit for Elementor  WordPress plugin before 2.7.0 does not sanitize SVG file contents when uploaded via xmlrpc.php, leading to a cross site scripting vulnerability."
+  },
+  "CVE-2025-9972": {
+    "id": "CVE-2025-9972",
+    "severity": "Critical",
+    "product": "ICG-2510W-LTE (EU/US)",
+    "version": "0 ",
+    "cwe": "CWE-78 Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')",
+    "description": "Certain models of Industrial Cellular Gateway developed by Planet Technology have an OS Command Injection vulnerability, allowing unauthenticated remote attackers to inject arbitrary OS commands and execute them on the device."
+  },
+  "CVE-2025-9971": {
+    "id": "CVE-2025-9971",
+    "severity": "Critical",
+    "product": "ICG-2510W-LTE (EU/US)",
+    "version": "0 ",
+    "cwe": "CWE-306 Missing Authentication for Critical Function",
+    "description": "Certain models of Industrial Cellular Gateway developed by Planet Technology have a Missing Authentication vulnerability, allowing unauthenticated remote attackers to manipulate the device via a specific functionality."
+  },
+  "CVE-2025-9970": {
+    "id": "CVE-2025-9970",
+    "severity": "Medium",
+    "product": "MConfig",
+    "version": "0 ",
+    "cwe": "CWE-316 Cleartext Storage of Sensitive Information in Memory",
+    "description": "Cleartext Storage of Sensitive Information in Memory vulnerability in ABB MConfig.This issue affects MConfig: through 1.4.9.21."
+  },
+  "CVE-2025-9968": {
+    "id": "CVE-2025-9968",
+    "severity": "Medium",
+    "product": "Armoury Crate",
+    "version": "before 6.3.4 ",
+    "cwe": "CWE-59 Improper Link Resolution Before File Access ('Link Following')",
+    "description": "A link following vulnerability exists in the UnifyScanner component of Armoury Crate. This vulnerability may be triggered by creating a specially crafted junction, potentially leading to local privilege escalation.For more information, please refer to section 'Security Update for Armoury Crate App' in the ASUS Security Advisory."
+  },
+  "CVE-2025-9967": {
+    "id": "CVE-2025-9967",
+    "severity": "High",
+    "product": "Orion SMS OTP Verification",
+    "version": "* ",
+    "cwe": "CWE-288 Authentication Bypass Using an Alternate Path or Channel",
+    "description": "The Orion SMS OTP Verification plugin for WordPress is vulnerable to privilege escalation via account takeover in all versions up to, and including, 1.1.7. This is due to the plugin not properly validating a user's identity prior to updating their password. This makes it possible for unauthenticated attackers to change arbitrary user's password to a one-time password if the attacker knows the user's phone number"
+  },
+  "CVE-2025-9966": {
+    "id": "CVE-2025-9966",
+    "severity": "High",
+    "product": "P series",
+    "version": "P – V2001.A.c518o2 ",
+    "cwe": "CWE-269 Improper Privilege Management",
+    "description": "Improper privilege management vulnerability in Novakon P series allows attackers to gain root privileges if one service is compromized.This issue affects P series: P – V2001.A.C518o2."
+  },
+  "CVE-2025-9965": {
+    "id": "CVE-2025-9965",
+    "severity": "Critical",
+    "product": "P series",
+    "version": "P – V2001.A.c518o2 ",
+    "cwe": "CWE-287 Improper Authentication",
+    "description": "Improper authentication vulnerability in Novakon P series allows unauthenticated attackers to upload and download any application from/to the device.This issue affects P series: P – V2001.A.C518o2."
+  },
+  "CVE-2025-9964": {
+    "id": "CVE-2025-9964",
+    "severity": "Medium",
+    "product": "P series",
+    "version": "P – V2001.A.c518o2 ",
+    "cwe": "CWE-521 Weak Password Requirements",
+    "description": "No password for the root user is set in Novakon P series. This allows phyiscal attackers to enter the console easily. This issue affects P series: P – V2001.A.C518o2."
+  },
+  "CVE-2025-9963": {
+    "id": "CVE-2025-9963",
+    "severity": "Critical",
+    "product": "P series",
+    "version": "P – V2001.A.c518o2 ",
+    "cwe": "CWE-22 Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')",
+    "description": "A path traversal vulnerability in Novakon P series allows to expose the root file system \"/\" and modify all files with root permissions. This way the system can also be compromized.This issue affects P series: P – V2001.A.C518o2."
+  },
+  "CVE-2025-9962": {
+    "id": "CVE-2025-9962",
+    "severity": "Critical",
+    "product": "P series",
+    "version": "P – V2001.A.c518o2 ",
+    "cwe": "CWE-120 Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
+    "description": "A buffer overflow vulnerability in Novakon P series allows attackers to gain root permission without prior authentication.This issue affects P series: P – V2001.A.C518o2."
+  },
+  "CVE-2025-9961": {
+    "id": "CVE-2025-9961",
+    "severity": "High",
+    "product": "AX10 V1/V1.2/V2/V2.6/V3/V3.6",
+    "version": "0 ",
+    "cwe": "CWE-120 Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')",
+    "description": "An authenticated attacker may remotely execute arbitrary code via the CWMP binary on the devices AX10 and AX1500. The exploit can only be conducted via a Man-In-The-Middle (MITM) attack. This issue affects AX10 V1/V1.2/V2/V2.6/V3/V3.6: before 1.2.1; AX1500 V1/V1.20/V1.26/V1.60/V1.80/V2.60/V3.6: before 1.3.11."
+  },
+  "CVE-2025-9960": {
+    "id": "CVE-2025-9960",
+    "severity": "High",
+    "product": "is-localhost-ip",
+    "version": "2.0.0 ",
+    "cwe": "CWE-918 Server-Side Request Forgery (SSRF)",
+    "description": "A restriction bypass vulnerability in is-localhost-ip could allow attackers to perform Server-Side Request Forgery (SSRF).This issue affects is-localhost-ip: 2.0.0."
+  },
+  "CVE-2025-9959": {
+    "id": "CVE-2025-9959",
+    "severity": "High",
+    "product": "null",
+    "version": "0 ",
+    "cwe": "CWE-94 Improper Control of Generation of Code ('Code Injection')",
+    "description": "Incomplete validation of dunder attributes allows an attacker to escape from the Local Python execution environment sandbox, enforced by smolagents. The attack requires a Prompt Injection in order to trick the agent to create malicious code."
+  },
+  "CVE-2025-9958": {
+    "id": "CVE-2025-9958",
+    "severity": "Medium",
+    "product": "GitLab",
+    "version": "14.10 ",
+    "cwe": "CWE-201: Insertion of Sensitive Information Into Sent Data",
+    "description": "An issue has been discovered in GitLab CE/EE affecting all versions from 14.10 before 18.2.7, 18.3 before 18.3.3, and 18.4 before 18.4.1, that could have allowed Guest users to access sensitive information stored in virtual registry configurations."
+  },
+  "CVE-2025-9952": {
+    "id": "CVE-2025-9952",
+    "severity": "Medium",
+    "product": "Trinity Audio – Text to Speech AI audio player to convert content into audio",
+    "version": "* ",
+    "cwe": "CWE-79 Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')",
+    "description": "The Trinity Audio – Text to Speech AI audio player to convert content into audio plugin for WordPress is vulnerable to Reflected Cross-Site Scripting via the 'range-date' parameter in all versions up to, and including, 5.20.2 due to insufficient input sanitization and output escaping. This makes it possible for unauthenticated attackers to inject arbitrary web scripts in pages that execute if they can successfully trick a user into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9951": {
+    "id": "CVE-2025-9951",
+    "severity": "Critical",
+    "product": "FFmpeg",
+    "version": "< 8.0 ",
+    "cwe": "CWE-122 Heap-based Buffer Overflow",
+    "description": "A heap-buffer-overflow write exists in jpeg2000dec FFmpeg which allows an attacker to potentially gain remote code execution or cause denial of service via the channel definition cdef atom of JPEG2000."
+  },
+  "CVE-2025-9949": {
+    "id": "CVE-2025-9949",
+    "severity": "Medium",
+    "product": "Internal Links Manager",
+    "version": "* ",
+    "cwe": "CWE-352 Cross-Site Request Forgery (CSRF)",
+    "description": "The Internal Links Manager plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 3.0.1. This is due to missing or incorrect nonce validation on the link deletion functionality in the process_bulk_action() function. This makes it possible for unauthenticated attackers to delete SEO links via a forged request granted they can trick a site administrator into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9948": {
+    "id": "CVE-2025-9948",
+    "severity": "Medium",
+    "product": "Chat by Chatwee",
+    "version": "* ",
+    "cwe": "CWE-352 Cross-Site Request Forgery (CSRF)",
+    "description": "The Chat by Chatwee plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 2.1.3. This is due to missing or incorrect nonce validation on the admin settings page. This makes it possible for unauthenticated attackers to modify plugin settings via a forged request granted they can trick a site administrator into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9946": {
+    "id": "CVE-2025-9946",
+    "severity": "Medium",
+    "product": "LockerPress – WordPress Security Plugin",
+    "version": "* ",
+    "cwe": "CWE-352 Cross-Site Request Forgery (CSRF)",
+    "description": "The LockerPress – WordPress Security Plugin plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 1.0. This is due to missing or incorrect nonce validation on a function. This makes it possible for unauthenticated attackers to update settings and inject malicious web scripts via a forged request granted they can trick a site administrator into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9945": {
+    "id": "CVE-2025-9945",
+    "severity": "Medium",
+    "product": "Optimize More! – CSS",
+    "version": "* ",
+    "cwe": "CWE-352 Cross-Site Request Forgery (CSRF)",
+    "description": "The Optimize More! – CSS plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 1.0.3. This is due to missing or incorrect nonce validation on the reset_plugin function. This makes it possible for unauthenticated attackers to reset the plugin's optimization settings via a forged request granted they can trick a site administrator into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9944": {
+    "id": "CVE-2025-9944",
+    "severity": "Medium",
+    "product": "Professional Contact Form",
+    "version": "* ",
+    "cwe": "CWE-352 Cross-Site Request Forgery (CSRF)",
+    "description": "The Professional Contact Form plugin for WordPress is vulnerable to Cross-Site Request Forgery in all versions up to, and including, 1.0.0. This is due to missing or incorrect nonce validation on the watch_for_contact_form_submit function. This makes it possible for unauthenticated attackers to trigger test email sending via a forged request granted they can trick a site administrator into performing an action such as clicking on a link."
+  },
+  "CVE-2025-9943": {
+    "id": "CVE-2025-9943",
+    "severity": "High",
+    "product": "Service Provider",
+    "version": "0 ",
+    "cwe": "CWE-89 Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')",
+    "description": "An SQL injection vulnerability has been identified in the \"ID\" attribute of the SAML response when the replay cache of the Shibboleth Service Provider (SP) is configured to use an SQL database as storage service. An unauthenticated attacker can exploit this issue via blind SQL injection, allowing for the extraction of arbitrary data from the database, if the database connection is configured to use the ODBC plugin. The vulnerability arises from insufficient escaping of single quotes in the class SQLString (file odbc-store.cpp, lines 253-271).This issue affects Shibboleth Service Provider through 3.5.0."
+  },
+  "CVE-2025-9942": {
+    "id": "CVE-2025-9942",
+    "severity": "High",
+    "product": "Real Estate Management System",
+    "version": "1.0 ",
+    "cwe": "Improper Access Controls",
+    "description": "A vulnerability has been found in CodeAstro Real Estate Management System 1.0. Affected is an unknown function of the file /submitproperty.php. The manipulation leads to unrestricted upload. The attack may be initiated remotely. The exploit has been disclosed to the public and may be used.\nEine Schwachstelle wurde in CodeAstro Real Estate Management System 1.0 gefunden. Es betrifft eine unbekannte Funktion der Datei /submitproperty.php. Durch Manipulieren mit unbekannten Daten kann eine unrestricted upload-Schwachstelle ausgenutzt werden. Der Angriff kann remote ausgeführt werden. Die Ausnutzung wurde veröffentlicht und kann verwendet werden."
+  },
+  "CVE-2025-9941": {
+    "id": "CVE-2025-9941",
+    "severity": "High",
+    "product": "Real Estate Management System",
+    "version": "1.0 ",
+    "cwe": "Improper Access Controls",
+    "description": "A flaw has been found in CodeAstro Real Estate Management System 1.0. This impacts an unknown function of the file /register.php. Executing manipulation of the argument uimage can lead to unrestricted upload. The attack can be launched remotely. The exploit has been published and may be used.\nIn CodeAstro Real Estate Management System 1.0 ist eine Schwachstelle entdeckt worden. Betroffen davon ist eine unbekannte Funktion der Datei /register.php. Durch das Manipulieren des Arguments uimage mit unbekannten Daten kann eine unrestricted upload-Schwachstelle ausgenutzt werden. Umgesetzt werden kann der Angriff über das Netzwerk. Der Exploit ist öffentlich verfügbar und könnte genutzt werden."
+  },
+  "CVE-2025-9940": {
+    "id": "CVE-2025-9940",
+    "severity": "Medium",
+    "product": "Real Estate Management System",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A vulnerability was detected in CodeAstro Real Estate Management System 1.0. This affects an unknown function of the file /feature.php. Performing manipulation of the argument msg results in cross site scripting. The attack can be initiated remotely. The exploit is now public and may be used.\nIn CodeAstro Real Estate Management System 1.0 wurde eine Schwachstelle gefunden. Es ist betroffen eine unbekannte Funktion der Datei /feature.php. Mittels Manipulieren des Arguments msg mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Es ist möglich, den Angriff aus der Ferne durchzuführen. Die Schwachstelle wurde öffentlich offengelegt und könnte ausgenutzt werden."
+  },
+  "CVE-2025-9939": {
+    "id": "CVE-2025-9939",
+    "severity": "Medium",
+    "product": "Real Estate Management System",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A security vulnerability has been detected in CodeAstro Real Estate Management System 1.0. The impacted element is an unknown function of the file /propertyview.php. Such manipulation of the argument msg leads to cross site scripting. It is possible to launch the attack remotely. The exploit has been disclosed publicly and may be used.\nEs wurde eine Schwachstelle in CodeAstro Real Estate Management System 1.0 entdeckt. Betroffen ist eine unbekannte Funktion der Datei /propertyview.php. Mittels dem Manipulieren des Arguments msg mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Ein Angriff ist aus der Distanz möglich. Der Exploit wurde der Öffentlichkeit bekannt gemacht und könnte verwendet werden."
+  },
+  "CVE-2025-9938": {
+    "id": "CVE-2025-9938",
+    "severity": "Critical",
+    "product": "DI-8400",
+    "version": "16.07.26A1 ",
+    "cwe": "Memory Corruption",
+    "description": "A weakness has been identified in D-Link DI-8400 16.07.26A1. The affected element is the function yyxz_dlink_asp of the file /yyxz.asp. This manipulation of the argument ID causes stack-based buffer overflow. It is possible to initiate the attack remotely. The exploit has been made available to the public and could be exploited.\nEine Schwachstelle wurde in D-Link DI-8400 16.07.26A1 gefunden. Hierbei geht es um die Funktion yyxz_dlink_asp der Datei /yyxz.asp. Durch Manipulation des Arguments ID mit unbekannten Daten kann eine stack-based buffer overflow-Schwachstelle ausgenutzt werden. Die Umsetzung des Angriffs kann dabei über das Netzwerk erfolgen. Der Exploit steht zur öffentlichen Verfügung."
+  },
+  "CVE-2025-9937": {
+    "id": "CVE-2025-9937",
+    "severity": "High",
+    "product": "eladmin",
+    "version": "1.1 ",
+    "cwe": "Improper Authorization",
+    "description": "A security flaw has been discovered in elunez eladmin 1.1. Impacted is the function deleteFile of the component LocalStorageController. The manipulation results in improper authorization. The attack may be performed from remote. The exploit has been released to the public and may be exploited.\nIn elunez eladmin 1.1 ist eine Schwachstelle entdeckt worden. Dabei geht es um die Funktion deleteFile der Komponente LocalStorageController. Durch die Manipulation mit unbekannten Daten kann eine improper authorization-Schwachstelle ausgenutzt werden. Der Angriff lässt sich über das Netzwerk starten. Die Ausnutzung wurde veröffentlicht und kann verwendet werden."
+  },
+  "CVE-2025-9936": {
+    "id": "CVE-2025-9936",
+    "severity": "High",
+    "product": "platform",
+    "version": "1.0.0 ",
+    "cwe": "Improper Authorization",
+    "description": "A vulnerability was identified in fuyang_lipengjun platform 1.0.0. This issue affects the function AdController of the file /ad/queryAll. The manipulation leads to improper authorization. The attack is possible to be carried out remotely. The exploit is publicly available and might be used.\nIn fuyang_lipengjun platform 1.0.0 wurde eine Schwachstelle gefunden. Es geht dabei um die Funktion AdController der Datei /ad/queryAll. Mit der Manipulation mit unbekannten Daten kann eine improper authorization-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk passieren. Der Exploit ist öffentlich verfügbar und könnte genutzt werden."
+  },
+  "CVE-2025-9935": {
+    "id": "CVE-2025-9935",
+    "severity": "High",
+    "product": "N600R",
+    "version": "4.3.0cu.7866_B20220506 ",
+    "cwe": "Command Injection",
+    "description": "A vulnerability was determined in TOTOLINK N600R 4.3.0cu.7866_B20220506. This vulnerability affects the function sub_4159F8 of the file /web_cste/cgi-bin/cstecgi.cgi. Executing manipulation can lead to command injection. The attack can be executed remotely. The exploit has been publicly disclosed and may be utilized.\nEs wurde eine Schwachstelle in TOTOLINK N600R 4.3.0cu.7866_B20220506 entdeckt. Es geht hierbei um die Funktion sub_4159F8 der Datei /web_cste/cgi-bin/cstecgi.cgi. Dank Manipulation mit unbekannten Daten kann eine command injection-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk erfolgen. Die Schwachstelle wurde öffentlich offengelegt und könnte ausgenutzt werden."
+  },
+  "CVE-2025-9934": {
+    "id": "CVE-2025-9934",
+    "severity": "High",
+    "product": "X5000R",
+    "version": "9.1.0cu.2415_B20250515 ",
+    "cwe": "Command Injection",
+    "description": "A vulnerability was found in TOTOLINK X5000R 9.1.0cu.2415_B20250515. This affects the function sub_410C34 of the file /cgi-bin/cstecgi.cgi. Performing manipulation of the argument pid results in command injection. Remote exploitation of the attack is possible. The exploit has been made public and could be used.\nEine Schwachstelle wurde in TOTOLINK X5000R 9.1.0cu.2415_B20250515 gefunden. Es geht um die Funktion sub_410C34 der Datei /cgi-bin/cstecgi.cgi. Dank der Manipulation des Arguments pid mit unbekannten Daten kann eine command injection-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk angegangen werden. Der Exploit wurde der Öffentlichkeit bekannt gemacht und könnte verwendet werden."
+  },
+  "CVE-2025-9933": {
+    "id": "CVE-2025-9933",
+    "severity": "High",
+    "product": "Beauty Parlour Management System",
+    "version": "1.1 ",
+    "cwe": "Injection",
+    "description": "A vulnerability has been found in PHPGurukul Beauty Parlour Management System 1.1. Affected by this issue is some unknown functionality of the file /admin/view-appointment.php. Such manipulation of the argument viewid leads to sql injection. The attack may be launched remotely. The exploit has been disclosed to the public and may be used.\nIn PHPGurukul Beauty Parlour Management System 1.1 ist eine Schwachstelle entdeckt worden. Betroffen hiervon ist ein unbekannter Ablauf der Datei /admin/view-appointment.php. Die Bearbeitung des Arguments viewid verursacht sql injection. Der Angriff kann remote ausgeführt werden. Der Exploit steht zur öffentlichen Verfügung."
+  },
+  "CVE-2025-9932": {
+    "id": "CVE-2025-9932",
+    "severity": "High",
+    "product": "Beauty Parlour Management System",
+    "version": "1.1 ",
+    "cwe": "Injection",
+    "description": "A flaw has been found in PHPGurukul Beauty Parlour Management System 1.1. Affected by this vulnerability is an unknown functionality of the file /admin/update-image.php. This manipulation of the argument lid causes sql injection. The attack may be initiated remotely. The exploit has been published and may be used.\nIn PHPGurukul Beauty Parlour Management System 1.1 wurde eine Schwachstelle gefunden. Betroffen davon ist ein unbekannter Prozess der Datei /admin/update-image.php. Die Veränderung des Parameters lid resultiert in sql injection. Umgesetzt werden kann der Angriff über das Netzwerk. Die Ausnutzung wurde veröffentlicht und kann verwendet werden."
+  },
+  "CVE-2025-9931": {
+    "id": "CVE-2025-9931",
+    "severity": "Medium",
+    "product": "OA",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A vulnerability was detected in Jinher OA 1.0. Affected is an unknown function of the file /jc6/platform/sys/login!changePassWord.action of the component POST Request Handler. The manipulation of the argument Account results in cross site scripting. The attack can be launched remotely. The exploit is now public and may be used.\nEs wurde eine Schwachstelle in Jinher OA 1.0 entdeckt. Betroffen ist eine unbekannte Verarbeitung der Datei /jc6/platform/sys/login!changePassWord.action der Komponente POST Request Handler. Die Manipulation des Arguments Account führt zu cross site scripting. Es ist möglich, den Angriff aus der Ferne durchzuführen. Der Exploit ist öffentlich verfügbar und könnte genutzt werden."
+  },
+  "CVE-2025-9930": {
+    "id": "CVE-2025-9930",
+    "severity": "High",
+    "product": "Beauty Parlour Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A security vulnerability has been detected in 1000projects Beauty Parlour Management System 1.0. This impacts an unknown function of the file /admin/contact-us.php. The manipulation of the argument mobnumber leads to sql injection. The attack can be initiated remotely. The exploit has been disclosed publicly and may be used.\nEine Schwachstelle wurde in 1000projects Beauty Parlour Management System 1.0 gefunden. Hiervon betroffen ist ein unbekannter Codeblock der Datei /admin/contact-us.php. Durch Beeinflussen des Arguments mobnumber mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Ein Angriff ist aus der Distanz möglich. Die Schwachstelle wurde öffentlich offengelegt und könnte ausgenutzt werden."
+  },
+  "CVE-2025-9929": {
+    "id": "CVE-2025-9929",
+    "severity": "Medium",
+    "product": "Responsive Blog Site",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A weakness has been identified in code-projects Responsive Blog Site 1.0. This affects an unknown function of the file blogs_view.php. Executing manipulation of the argument product_code/gen_name/product_name/supplier can lead to cross site scripting. It is possible to launch the attack remotely. The exploit has been made available to the public and could be exploited.\nIn code-projects Responsive Blog Site 1.0 ist eine Schwachstelle entdeckt worden. Davon betroffen ist unbekannter Code der Datei blogs_view.php. Durch das Beeinflussen des Arguments product_code/gen_name/product_name/supplier mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Die Umsetzung des Angriffs kann dabei über das Netzwerk erfolgen. Der Exploit wurde der Öffentlichkeit bekannt gemacht und könnte verwendet werden."
+  },
+  "CVE-2025-9928": {
+    "id": "CVE-2025-9928",
+    "severity": "High",
+    "product": "Travel Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A security flaw has been discovered in projectworlds Travel Management System 1.0. The impacted element is an unknown function of the file /viewcategory.php. Performing manipulation of the argument t1 results in sql injection. It is possible to initiate the attack remotely. The exploit has been released to the public and may be exploited.\nIn projectworlds Travel Management System 1.0 wurde eine Schwachstelle gefunden. Hierbei betrifft es unbekannten Programmcode der Datei /viewcategory.php. Durch Manipulieren des Arguments t1 mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Der Angriff lässt sich über das Netzwerk starten. Der Exploit steht zur öffentlichen Verfügung."
+  },
+  "CVE-2025-9927": {
+    "id": "CVE-2025-9927",
+    "severity": "High",
+    "product": "Travel Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A vulnerability was identified in projectworlds Travel Management System 1.0. The affected element is an unknown function of the file /viewpackage.php. Such manipulation of the argument t1 leads to sql injection. The attack may be performed from remote. The exploit is publicly available and might be used.\nEs wurde eine Schwachstelle in projectworlds Travel Management System 1.0 entdeckt. Dabei betrifft es einen unbekannter Codeteil der Datei /viewpackage.php. Durch das Manipulieren des Arguments t1 mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk passieren. Die Ausnutzung wurde veröffentlicht und kann verwendet werden."
+  },
+  "CVE-2025-9926": {
+    "id": "CVE-2025-9926",
+    "severity": "High",
+    "product": "Travel Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A vulnerability was determined in projectworlds Travel Management System 1.0. Impacted is an unknown function of the file /viewsubcategory.php. This manipulation of the argument t1 causes sql injection. The attack is possible to be carried out remotely. The exploit has been publicly disclosed and may be utilized.\nEine Schwachstelle wurde in projectworlds Travel Management System 1.0 gefunden. Dies betrifft einen unbekannten Teil der Datei /viewsubcategory.php. Mittels Manipulieren des Arguments t1 mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk erfolgen. Der Exploit ist öffentlich verfügbar und könnte genutzt werden."
+  },
+  "CVE-2025-9925": {
+    "id": "CVE-2025-9925",
+    "severity": "High",
+    "product": "Travel Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A vulnerability was found in projectworlds Travel Management System 1.0. This issue affects some unknown processing of the file /detail.php. The manipulation of the argument pid results in sql injection. The attack can be executed remotely. The exploit has been made public and could be used.\nIn projectworlds Travel Management System 1.0 ist eine Schwachstelle entdeckt worden. Das betrifft eine unbekannte Funktionalität der Datei /detail.php. Mittels dem Manipulieren des Arguments pid mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Der Angriff kann über das Netzwerk angegangen werden. Die Schwachstelle wurde öffentlich offengelegt und könnte ausgenutzt werden."
+  },
+  "CVE-2025-9924": {
+    "id": "CVE-2025-9924",
+    "severity": "High",
+    "product": "Travel Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A vulnerability has been found in projectworlds Travel Management System 1.0. This vulnerability affects unknown code of the file /enquiry.php. The manipulation of the argument t2 leads to sql injection. Remote exploitation of the attack is possible. The exploit has been disclosed to the public and may be used.\nIn projectworlds Travel Management System 1.0 wurde eine Schwachstelle gefunden. Es betrifft eine unbekannte Funktion der Datei /enquiry.php. Durch Manipulation des Arguments t2 mit unbekannten Daten kann eine sql injection-Schwachstelle ausgenutzt werden. Der Angriff kann remote ausgeführt werden. Der Exploit wurde der Öffentlichkeit bekannt gemacht und könnte verwendet werden."
+  },
+  "CVE-2025-9923": {
+    "id": "CVE-2025-9923",
+    "severity": "Medium",
+    "product": "Sales and Inventory System",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A flaw has been found in Campcodes Sales and Inventory System 1.0. This affects an unknown part of the file /index.php. Executing manipulation of the argument page can lead to cross site scripting. The attack may be launched remotely. The exploit has been published and may be used.\nEs wurde eine Schwachstelle in Campcodes Sales and Inventory System 1.0 entdeckt. Betroffen davon ist eine unbekannte Funktion der Datei /index.php. Durch die Manipulation des Arguments page mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Umgesetzt werden kann der Angriff über das Netzwerk. Der Exploit steht zur öffentlichen Verfügung."
+  },
+  "CVE-2025-9922": {
+    "id": "CVE-2025-9922",
+    "severity": "Medium",
+    "product": "Sales and Inventory System",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A security vulnerability has been detected in Campcodes Sales and Inventory System 1.0. Affected by this vulnerability is an unknown functionality of the file /index.php. Such manipulation of the argument page leads to cross site scripting. The attack can be launched remotely. The exploit has been disclosed publicly and may be used.\nIn Campcodes Sales and Inventory System 1.0 ist eine Schwachstelle entdeckt worden. Betroffen ist eine unbekannte Funktion der Datei /index.php. Dank Manipulation des Arguments page mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Ein Angriff ist aus der Distanz möglich. Der Exploit ist öffentlich verfügbar und könnte genutzt werden."
+  },
+  "CVE-2025-9921": {
+    "id": "CVE-2025-9921",
+    "severity": "Medium",
+    "product": "POS Pharmacy System",
+    "version": "1.0 ",
+    "cwe": "Code Injection",
+    "description": "A weakness has been identified in code-projects POS Pharmacy System 1.0. Affected is an unknown function of the file /main/products.php. This manipulation of the argument product_code/gen_name/product_name/supplier causes cross site scripting. The attack can be initiated remotely. The exploit has been made available to the public and could be exploited.\nIn code-projects POS Pharmacy System 1.0 wurde eine Schwachstelle gefunden. Hierbei geht es um eine nicht exakt ausgemachte Funktion der Datei /main/products.php. Dank der Manipulation des Arguments product_code/gen_name/product_name/supplier mit unbekannten Daten kann eine cross site scripting-Schwachstelle ausgenutzt werden. Die Umsetzung des Angriffs kann dabei über das Netzwerk erfolgen. Die Schwachstelle wurde öffentlich offengelegt und könnte ausgenutzt werden."
+  },
+  "CVE-2025-9920": {
+    "id": "CVE-2025-9920",
+    "severity": "High",
+    "product": "Recruitment Management System",
+    "version": "1.0 ",
+    "cwe": "File Inclusion",
+    "description": "A security flaw has been discovered in Campcodes Recruitment Management System 1.0. This impacts the function include of the file /admin/index.php. The manipulation of the argument page results in file inclusion. It is possible to launch the attack remotely. The exploit has been released to the public and may be exploited.\nEs wurde eine Schwachstelle in Campcodes Recruitment Management System 1.0 entdeckt. Dabei geht es um die Funktion include der Datei /admin/index.php. Die Bearbeitung des Arguments page verursacht file inclusion. Der Angriff lässt sich über das Netzwerk starten. Der Exploit wurde der Öffentlichkeit bekannt gemacht und könnte verwendet werden."
+  },
+  "CVE-2025-9919": {
+    "id": "CVE-2025-9919",
+    "severity": "High",
+    "product": "Beauty Parlour Management System",
+    "version": "1.0 ",
+    "cwe": "Injection",
+    "description": "A vulnerability was identified in 1000projects Beauty Parlour Management System 1.0. This affects an unknown function of the file /admin/bwdates-reports-details.php. The manipulation of the argument fromdate/todate leads to sql injection. It is possible to initiate the attack remotely. The exploit is publicly available and might be used.\nEine Schwachstelle wurde in 1000projects Beauty Parlour Management System 1.0 gefunden. Es geht dabei um eine nicht klar definierte Funktion der Datei /admin/bwdates-reports-details.php. Die Veränderung des Parameters fromdate/todate resultiert in sql injection. Der Angriff kann über das Netzwerk passieren. Der Exploit steht zur öffentlichen Verfügung."
+  }
+}
