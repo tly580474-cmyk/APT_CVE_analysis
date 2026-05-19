@@ -231,7 +231,7 @@ PORT=3001
 NODE_ENV=development
 
 # OpenAI API配置
-OPENAI_API_URL=https://free.v36.cm/v1
+OPENAI_API_URL=
 OPENAI_API_KEY=your_api_key
 ```
 
@@ -259,4 +259,4 @@ OPENAI_API_KEY=your_api_key
 
 ## 许可证
 
-MIT License
+无
