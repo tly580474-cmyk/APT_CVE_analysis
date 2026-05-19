@@ -1,5 +1,20 @@
 const { Post, Comment, User, PostLike } = require('../models');
 
+// 浏览量去重缓存：key = "postId:identifier"，value = 时间戳
+// 5分钟内同一用户/IP对同一帖子只计一次浏览
+const viewCache = new Map();
+const VIEW_COOLDOWN_MS = 5 * 60 * 1000;
+
+// 定期清理过期缓存（每10分钟）
+setInterval(() => {
+  const now = Date.now();
+  for (const [key, timestamp] of viewCache) {
+    if (now - timestamp > VIEW_COOLDOWN_MS) {
+      viewCache.delete(key);
+    }
+  }
+}, 10 * 60 * 1000);
+
 // 获取所有帖子（公开 - 无需登录）
 const getAllPosts = async (req, res) => {
   try {
@@ -71,9 +86,17 @@ const getPostById = async (req, res) => {
       return res.status(404).json({ message: '帖子不存在' });
     }
 
-    // 增加浏览量
-    post.views += 1;
-    await post.save();
+    // 基于用户ID或IP去重，5分钟内只计一次浏览
+    const identifier = req.user?.id || req.ip;
+    const cacheKey = `${id}:${identifier}`;
+    const now = Date.now();
+    const lastView = viewCache.get(cacheKey);
+
+    if (!lastView || (now - lastView) > VIEW_COOLDOWN_MS) {
+      post.views += 1;
+      await post.save();
+      viewCache.set(cacheKey, now);
+    }
 
     // 返回完整数据，包含authorId
     res.json({

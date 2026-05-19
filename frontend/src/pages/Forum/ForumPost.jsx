@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Card, Button, Avatar, Tag, List, Input, message, Spin, Divider, Modal, Form } from 'antd';
 import {
@@ -34,7 +34,13 @@ const ForumPost = () => {
   const currentUser = isLoggedIn ? JSON.parse(localStorage.getItem('user') || '{}') : null;
   const canEdit = currentUser && post && (currentUser.id === post.authorId || currentUser.role === 'admin');
 
+  // 使用ref防止React StrictMode双重调用
+  const fetchedRef = useRef(false);
+
   useEffect(() => {
+    // StrictMode下useEffect会执行两次，用ref跳过第二次
+    if (fetchedRef.current) return;
+    fetchedRef.current = true;
     fetchPost();
   }, [id]);
 
