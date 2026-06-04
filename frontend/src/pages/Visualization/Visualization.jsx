@@ -108,12 +108,27 @@ const Visualization = () => {
         smooth: true,
         symbol: 'circle',
         symbolSize: 10,
-        lineStyle: { width: 4, color: '#10b981' },
+        lineStyle: { width: 4, color: '#10b981', shadowColor: 'rgba(16, 185, 129, 0.4)', shadowBlur: 10, shadowOffsetY: 4 },
+        itemStyle: {
+          borderWidth: 2,
+          borderColor: '#fff',
+          shadowColor: 'rgba(0, 0, 0, 0.15)',
+          shadowBlur: 6,
+          shadowOffsetY: 2
+        },
         areaStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(16, 185, 129, 0.3)' },
+            { offset: 0, color: 'rgba(16, 185, 129, 0.35)' },
+            { offset: 0.5, color: 'rgba(16, 185, 129, 0.15)' },
             { offset: 1, color: 'rgba(16, 185, 129, 0)' }
           ])
+        },
+        emphasis: {
+          focus: 'series',
+          itemStyle: {
+            shadowBlur: 12,
+            shadowColor: 'rgba(16, 185, 129, 0.6)'
+          }
         }
       }]
     });
@@ -126,19 +141,21 @@ const Visualization = () => {
       tooltip: { trigger: 'item', ...getTooltipStyle() },
       legend: {
         orient: 'vertical',
-        right: '5%',
-        top: 'center',
+        right: '2%',
+        top: 'middle',
         icon: 'circle',
-        itemGap: 15,
-        textStyle: { color: isDark ? '#94a3b8' : '#64748b', fontSize: 12 }
+        itemGap: 10,
+        itemWidth: 10,
+        itemHeight: 10,
+        textStyle: { color: isDark ? '#94a3b8' : '#64748b', fontSize: 11 }
       },
       series: [{
         type: 'pie',
-        radius: ['40%', '70%'],
-        center: ['35%', '50%'],
+        radius: ['38%', '62%'],
+        center: ['32%', '50%'],
         avoidLabelOverlap: true,
         itemStyle: {
-          borderRadius: 10,
+          borderRadius: 8,
           borderColor: isDark ? '#1e293b' : '#fff',
           borderWidth: 2
         },
@@ -147,11 +164,11 @@ const Visualization = () => {
           position: 'outside',
           formatter: '{b}: {d}%',
           color: isDark ? '#94a3b8' : '#64748b',
-          fontSize: 12
+          fontSize: 11
         },
-        labelLine: { show: true, length: 15, length2: 10 },
+        labelLine: { show: true, length: 12, length2: 8 },
         emphasis: {
-          label: { show: true, fontSize: 18, fontWeight: 'bold' }
+          label: { show: true, fontSize: 16, fontWeight: 'bold' }
         },
         data: Object.entries(data.vulnerabilityTypes)
           .map(([name, value], index) => ({
