@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "Bash(npx jest *)",
+      "Bash(where psql *)",
+      "Bash(pg_isready)",
+      "Bash(psql *)",
+      "Bash(node seed.js)",
+      "Bash(node test-forum-api.js)",
+      "Bash(timeout 15 npm run dev)",
+      "Bash(git commit *)",
+      "Bash(npx vite *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__navigate_page",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_screenshot",
+      "Bash(git checkout *)",
+      "Bash(node -e \"require\\('./src/controllers/cveBatchAnalyzer'\\); console.log\\('OK'\\)\")",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__click",
+      "mcp__plugin_chrome-devtools-mcp_chrome-devtools__take_snapshot",
+      "Bash(git add *)",
+      "Bash(node scripts/classify-cve.js --year 2025 --limit 10)",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/classify-cve.js --key tp-cne376ngywmc1jadq27iclc3a09bnzxpd2syq8z0ize70hq6 --url https://token-plan-cn.xiaomimimo.com/v1 --model mimo-v2.5 --year 2025 --limit 30)",
+      "Bash(node scripts/classify-cve.js --year 2025 --limit 30)",
+      "Bash(node -e \"const fs=require\\('fs'\\).promises; const p=require\\('path'\\); \\(async\\(\\)=>{const y='2025';const files=await fs.readdir\\(p.join\\('cve_repo',y\\)\\); const md=files.filter\\(f=>f.endsWith\\('.md'\\)\\); console.log\\(y+': '+md.length+' files'\\); console.log\\('first 5:',md.slice\\(0,5\\)\\); console.log\\('last 5:',md.slice\\(-5\\)\\)}\\)\\(\\)\")",
+      "Bash(rm -f cve_repo/classified.json)",
+      "Bash(node scripts/classify-cve.js --year 2025 --limit 100)"
+    ]
+  }
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APT Sentinel 威胁情报平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .sidebar-item.active {
+            background-color: #f3f4f6;
+            border-left: 4px solid #3b82f6;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+    <div class="flex h-screen overflow-hidden">
+        
+        <aside class="w-64 bg-white border-r border-gray-200 flex flex-col justify-between z-10">
+            <div>
+                <div class="p-6 flex items-center space-x-2 border-b border-gray-100">
+                    <i class="fa-solid fa-shield-halved text-blue-600 text-xl"></i>
+                    <span class="font-bold text-lg tracking-wider">APT Sentinel</span>
+                </div>
+                
+                <nav class="p-4 space-y-6">
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">核心模块</p>
+                        <ul class="space-y-1">
+                            <li><a href="#" onclick="switchPage('dashboard')" id="menu-dashboard" class="sidebar-item active flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-700 hover:bg-gray-50 transition"><i class="fa-solid fa-gauge w-5"></i><span>仪表盘</span></a></li>
+                            <li><a href="#" onclick="switchPage('docs')" id="menu-docs" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-regular fa-file-lines w-5"></i><span>文档管理</span></a></li>
+                            <li><a href="#" onclick="switchPage('cve')" id="menu-cve" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-solid fa-bug w-5"></i><span>CVE漏洞</span></a></li>
+                            <li><a href="#" onclick="switchPage('vis')" id="menu-vis" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-solid fa-chart-line w-5"></i><span>可视化</span></a></li>
+                            <li><a href="#" onclick="switchPage('ai')" id="menu-ai" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-regular fa-square-minus w-5"></i><span>智能分析</span></a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">社区</p>
+                        <ul class="space-y-1">
+                            <li><a href="#" onclick="switchPage('forum')" id="menu-forum" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-regular fa-comments w-5"></i><span>论坛</span></a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">用户</p>
+                        <ul class="space-y-1">
+                            <li><a href="#" onclick="switchPage('admin')" id="menu-admin" class="sidebar-item flex items-center space-x-3 px-3 py-2.5 rounded-lg text-gray-600 hover:bg-gray-50 transition"><i class="fa-solid fa-gear w-5"></i><span>管理后台</span></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            
+            <div class="p-4 border-t border-gray-100 flex justify-between items-center text-gray-500">
+                <button class="hover:text-gray-800"><i class="fa-solid fa-angle-left"></i></button>
+                <button class="hover:text-gray-800"><i class="fa-regular fa-moon"></i></button>
+            </div>
+        </aside>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            
+            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-8 z-10">
+                <div class="relative w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400"></i>
+                    <input type="text" placeholder="搜索情报、CVE、文档..." class="w-full bg-gray-50 pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:border-blue-500 text-sm">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-500 hover:text-gray-800"><i class="fa-regular fa-moon text-lg"></i></button>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-purple-200 flex items-center justify-center text-sm font-semibold text-purple-700">A</div>
+                        <span class="text-sm font-medium text-gray-700">admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-y-auto p-8">
+                
+                <div id="page-dashboard" class="page-content space-y-6">
+                    <h1 class="text-2xl font-bold text-gray-900">平台概览</h1>
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+                            <span class="text-gray-400 text-sm font-medium">文档数量</span>
+                            <span class="text-3xl font-bold text-emerald-600 mt-2"><i class="fa-regular fa-file-lines mr-1"></i> 11</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+                            <span class="text-gray-400 text-sm font-medium">CVE漏洞</span>
+                            <span class="text-3xl font-bold text-red-500 mt-2"><i class="fa-solid fa-bug mr-1"></i> 155,989</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+                            <span class="text-gray-400 text-sm font-medium">论坛帖子</span>
+                            <span class="text-3xl font-bold text-amber-500 mt-2"><i class="fa-regular fa-comments mr-1"></i> 258</span>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col">
+                            <span class="text-gray-400 text-sm font-medium">活跃用户</span>
+                            <span class="text-3xl font-bold text-indigo-600 mt-2"><i class="fa-regular fa-user mr-1"></i> 11</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-lg">最新文档</h3>
+                                <a href="#" onclick="switchPage('docs')" class="text-blue-600 text-sm hover:underline">查看更多</a>
+                            </div>
+                            <div class="divide-y divide-gray-100">
+                                <div class="py-3 flex justify-between items-center">
+                                    <div>
+                                        <p class="font-medium text-gray-800 text-sm">Google Chrome Media组件越界读取漏洞</p>
+                                        <span class="text-xs text-gray-400">2026/5/19</span>
+                                    </div>
+                                    <span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded">medium</span>
+                                </div>
+                                <div class="py-3 flex justify-between items-center">
+                                    <div>
+                                        <p class="font-medium text-gray-800 text-sm">IBM Langflow Desktop反序列化漏洞</p>
+                                        <span class="text-xs text-gray-400">2026/5/19</span>
+                                    </div>
+                                    <span class="px-2 py-0.5 bg-red-100 text-red-800 text-xs font-semibold rounded">high</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-bold text-lg">热门CVE</h3>
+                                <span class="text-xs text-gray-400">CVE-2026-3989</span>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-sm font-mono text-gray-600 space-y-2">
+                                <p>SGLangs <code class="bg-gray-200 px-1 rounded">replay_request_dump.py</code> contains an insecure pickle.load() without validation...</p>
+                                <div class="bg-blue-50 text-blue-700 p-2 rounded border border-blue-200 text-xs">
+                                    CWE-502: Deserialization of Untrusted Data
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-docs" class="page-content space-y-6 hidden">
+                    <div class="flex justify-between items-center">
+                        <h1 class="text-2xl font-bold text-gray-900">文档管理</h1>
+                        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium"><i class="fa-solid fa-plus mr-1"></i> 新建文档</button>
+                    </div>
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-gray-50 border-b border-gray-200 text-sm font-semibold text-gray-600">
+                                    <th class="p-4">ID</th><th class="p-4">标题</th><th class="p-4">作者</th><th class="p-4">日期</th><th class="p-4">威胁等级</th><th class="p-4">状态</th><th class="p-4">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm divide-y divide-gray-100">
+                                <tr>
+                                    <td class="p-4">11</td>
+                                    <td class="p-4 font-medium text-gray-900">Google Chrome Media组件越界读取漏洞</td>
+                                    <td class="p-4">admin</td>
+                                    <td class="p-4">2026/5/19 14:54:39</td>
+                                    <td class="p-4"><span class="px-2 py-0.5 bg-yellow-100 text-yellow-800 rounded text-xs">中危</span></td>
+                                    <td class="p-4"><span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">待分析</span></td>
+                                    <td class="p-4 space-x-2"><a href="#" class="text-blue-600 hover:underline">查看</a><a href="#" class="text-gray-500 hover:underline">编辑</a><a href="#" class="text-red-500 hover:underline">删除</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="p-4">10</td>
+                                    <td class="p-4 font-medium text-gray-900">IBM Langflow Desktop反序列化漏洞</td>
+                                    <td class="p-4">admin</td>
+                                    <td class="p-4">2026/5/19 14:52:26</td>
+                                    <td class="p-4"><span class="px-2 py-0.5 bg-red-100 text-red-800 rounded text-xs">高危</span></td>
+                                    <td class="p-4"><span class="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">待分析</span></td>
+                                    <td class="p-4 space-x-2"><a href="#" class="text-blue-600 hover:underline">查看</a><a href="#" class="text-gray-500 hover:underline">编辑</a><a href="#" class="text-red-500 hover:underline">删除</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="page-cve" class="page-content space-y-6 hidden">
+                    <h1 class="text-2xl font-bold text-gray-900">CVE漏洞信息</h1>
+                    <div class="grid grid-cols-4 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><p class="text-gray-400 text-xs">总漏洞数</p><p class="text-2xl font-bold text-emerald-600 mt-1">155,989</p></div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><p class="text-gray-400 text-xs">严重漏洞</p><p class="text-2xl font-bold text-red-600 mt-1">46,271</p></div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><p class="text-gray-400 text-xs">高危漏洞</p><p class="text-2xl font-bold text-orange-500 mt-1">58,936</p></div>
+                        <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm"><p class="text-gray-400 text-xs">中危漏洞</p><p class="text-2xl font-bold text-emerald-500 mt-1">50,782</p></div>
+                    </div>
+                </div>
+
+                <div id="page-vis" class="page-content space-y-6 hidden">
+                    <h1 class="text-2xl font-bold text-gray-900">威胁情报可视化</h1>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+                        <h3 class="font-bold mb-4 text-gray-700">CVE 数量年度趋势 (1999 - 2026)</h3>
+                        <div class="h-64 bg-gray-50 rounded-lg flex items-end justify-between p-4 relative border-b border-gray-200">
+                            <div class="w-8 bg-emerald-400 h-8 rounded-t"></div>
+                            <div class="w-8 bg-emerald-400 h-16 rounded-t"></div>
+                            <div class="w-8 bg-emerald-400 h-24 rounded-t"></div>
+                            <div class="w-8 bg-emerald-500 h-40 rounded-t"></div>
+                            <div class="w-8 bg-orange-400 h-48 rounded-t"></div>
+                            <div class="w-8 bg-red-500 h-56 rounded-t"></div>
+                            <div class="absolute inset-0 flex items-center justify-center bg-gray-900/5 backdrop-blur-[1px] rounded-lg">
+                                <span class="bg-white px-3 py-1 rounded shadow text-xs font-medium text-gray-600"><i class="fa-solid fa-chart-area mr-1"></i> 实际运行时将渲染动态 ECharts 折线图</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-ai" class="page-content space-y-6 hidden">
+                    <h1 class="text-2xl font-bold text-gray-900">智能分析</h1>
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 flex items-center justify-between text-sm text-blue-700">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span>AI 配置信息：<strong class="bg-white px-1.5 py-0.5 rounded border border-blue-300">gemini-3-flash-preview</strong> 状态：<span class="text-emerald-600 font-bold">已连接</span></span>
+                        </div>
+                        <div>流式输出：<span class="text-emerald-600 font-bold">开启</span></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                            <h3 class="font-bold text-gray-800">上传文件分析</h3>
+                            <div class="border-2 border-dashed border-gray-200 rounded-lg p-8 text-center text-gray-400 hover:border-blue-400 cursor-pointer transition">
+                                <i class="fa-solid fa-cloud-arrow-up text-2xl mb-2 text-gray-300"></i>
+                                <p class="text-xs">支持 Markdown (.md) 或 文本 (.txt) 格式</p>
+                            </div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                            <h3 class="font-bold text-gray-800">直接输入分析</h3>
+                            <textarea class="w-full h-32 p-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:border-blue-500 text-sm" placeholder="在此粘贴 CVE 漏洞内容..."></textarea>
+                            <button class="w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700">开始流式分析</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="page-forum" class="page-content space-y-4 hidden">
+                    <div class="flex justify-between items-center mb-2">
+                        <h1 class="text-2xl font-bold text-gray-900">Security Forum</h1>
+                        <button class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-medium">Create Post</button>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-3">
+                        <div class="flex items-center space-x-2 text-xs text-gray-400">
+                            <div class="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center font-bold text-gray-600">R</div>
+                            <span class="font-medium text-gray-600">incident_responder</span>
+                            <span>•</span><span>2026/5/14 11:51:24</span>
+                        </div>
+                        <h2 class="text-base font-bold text-gray-900 hover:text-blue-600 cursor-pointer">红蓝对抗演练中的APT模拟技术（Part 5）</h2>
+                        <p class="text-sm text-gray-500">密码学是网络安全的基础。了解常见的密码学算法和协议，对于安全从业者来说至关重要。</p>
+                        <div class="flex space-x-2 text-xs"><span class="px-2 py-0.5 bg-green-50 text-green-700 rounded-full">红蓝对抗</span><span class="px-2 py-0.5 bg-green-50 text-green-700 rounded-full">模拟</span></div>
+                    </div>
+                </div>
+
+                <div id="page-admin" class="page-content space-y-6 hidden">
+                    <h1 class="text-2xl font-bold text-gray-900">管理员后台</h1>
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+                        <div class="p-4 border-b border-gray-100 flex space-x-4 text-sm font-medium text-gray-500">
+                            <span class="text-blue-600 border-b-2 border-blue-600 pb-4 px-2 cursor-pointer">用户管理</span>
+                            <span class="hover:text-gray-800 pb-4 px-2 cursor-pointer">帖子管理</span>
+                        </div>
+                        <table class="w-full text-left border-collapse text-sm">
+                            <tbody class="divide-y divide-gray-100">
+                                <tr class="bg-gray-50 font-semibold text-gray-600"><td class="p-4">ID</td><td class="p-4">用户名</td><td class="p-4">邮箱</td><td class="p-4">角色</td><td class="p-4">操作</td></tr>
+                                <tr><td class="p-4">11</td><td class="p-4">incident_responder</td><td class="p-4">incident_responder@apt.com</td><td class="p-4"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs">普通用户</span></td><td class="p-4 space-x-2"><button class="text-blue-600 hover:underline">修改角色</button><button class="text-red-500 hover:underline">删除</button></td></tr>
+                                <tr><td class="p-4">10</td><td class="p-4">malware_researcher</td><td class="p-4">malware_researcher@apt.com</td><td class="p-4"><span class="bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs">普通用户</span></td><td class="p-4 space-x-2"><button class="text-blue-600 hover:underline">修改角色</button><button class="text-red-500 hover:underline">删除</button></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+        function switchPage(pageId) {
+            // 隐藏所有页面内容
+            document.querySelectorAll('.page-content').forEach(page => page.classList.add('hidden'));
+            // 取消所有菜单项的激活状态
+            document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+            
+            // 显示目标页面
+            document.getElementById('page-' + pageId).classList.remove('hidden');
+            // 激活当前菜单项
+            document.getElementById('menu-' + pageId).classList.add('active');
+        }
+    </script>
+</body>
+</html>

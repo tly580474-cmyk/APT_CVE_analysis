@@ -17,31 +17,75 @@
 
 /* Dark mode Ant Design overrides */
 .dark .ant-layout {
-  background: #17181A !important;
+  background: #111827 !important;
 }
 
 .dark .ant-layout-footer {
-  background: #17181A !important;
+  background: rgba(31, 41, 55, 0.78) !important;
+}
+
+.dark .ant-card {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+.dark .ant-card-head {
+  border-bottom-color: #374151 !important;
+}
+
+.dark .ant-card-head-title,
+.dark .ant-statistic-content,
+.dark .ant-list-item-meta-title,
+.dark .ant-typography {
+  color: #e5e7eb !important;
+}
+
+.dark .ant-card-extra a,
+.dark a {
+  color: #34d399;
+}
+
+.dark .ant-list-item {
+  border-bottom-color: #374151 !important;
+}
+
+.dark .ant-list-item-meta-description,
+.dark .ant-statistic-title {
+  color: #9ca3af !important;
+}
+
+.dark .ant-input,
+.dark .ant-input-affix-wrapper,
+.dark .ant-select-selector,
+.dark .ant-picker,
+.dark .ant-upload-drag {
+  background: #273449 !important;
+  border-color: #374151 !important;
+  color: #e5e7eb !important;
+}
+
+.dark .ant-input::placeholder {
+  color: #6b7280 !important;
 }
 
 /* WangEditor dark mode overrides */
 .dark .w-e-toolbar {
-  background-color: #17181A !important;
-  border-color: #334155 !important;
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
 }
 
 .dark .w-e-toolbar .w-e-bar-item button {
-  color: #94a3b8 !important;
+  color: #9ca3af !important;
 }
 
 .dark .w-e-text-container {
-  background-color: #17181A !important;
-  border-color: #334155 !important;
-  color: #e2e8f0 !important;
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+  color: #e5e7eb !important;
 }
 
 .dark .w-e-text-container .w-e-text {
-  color: #e2e8f0 !important;
+  color: #e5e7eb !important;
 }
 
 /* Custom scrollbar for sidebar */
@@ -51,13 +95,27 @@
 
 /* Ant Design dark mode table fix */
 .dark .ant-table {
-  background: #17181A !important;
+  background: #1f2937 !important;
+}
+
+.dark .ant-table-thead > tr > th {
+  background: #273449 !important;
+  border-bottom-color: #374151 !important;
+  color: #e5e7eb !important;
+}
+
+.dark .ant-table-tbody > tr > td {
+  border-bottom-color: #374151 !important;
+}
+
+.dark .ant-table-tbody > tr:hover > td {
+  background: #273449 !important;
 }
 
 .dark .ant-modal-content {
-  background: #17181A !important;
+  background: #1f2937 !important;
 }
 
 .dark .ant-modal-header {
-  background: #17181A !important;
+  background: #1f2937 !important;
 }

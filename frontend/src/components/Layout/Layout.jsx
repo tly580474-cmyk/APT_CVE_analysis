@@ -28,7 +28,7 @@ const Layout = () => {
         </Content>
 
         {/* Footer */}
-        <Footer className="text-center bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border-t border-gray-100 dark:border-slate-700 transition-colors duration-200">
+        <Footer className="text-center bg-white/60 dark:bg-slate-800/80 backdrop-blur-sm border-t border-gray-100 dark:border-slate-700 transition-colors duration-200">
           <div className="flex flex-col items-center gap-2">
             <p className="text-gray-500 dark:text-slate-400 text-sm">
               APT攻击情报分析平台 &copy;2026 Created by Security Team

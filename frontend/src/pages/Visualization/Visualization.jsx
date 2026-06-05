@@ -20,10 +20,10 @@ const Visualization = () => {
   ];
 
   const getTooltipStyle = () => ({
-    backgroundColor: isDark ? '#17181A' : 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: isDark ? '#273449' : 'rgba(255, 255, 255, 0.9)',
     borderRadius: 8,
     padding: 12,
-    textStyle: { color: isDark ? '#e2e8f0' : '#1e293b' },
+    textStyle: { color: isDark ? '#e5e7eb' : '#1e293b' },
     extraCssText: `box-shadow: 0 4px 12px rgba(0,0,0,${isDark ? '0.3' : '0.1'}); border: none;`
   });
 
@@ -240,18 +240,18 @@ const Visualization = () => {
   return (
     <div className="min-h-screen">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold text-surface-900 dark:text-white tracking-tight">
+        <h1 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
           威胁情报可视化
         </h1>
-        <p className="mt-2 text-surface-500 dark:text-slate-400 text-lg">
+        <p className="mt-2 text-slate-500 dark:text-slate-400 text-lg">
           实时分析全球 CVE 漏洞趋势与分布特征
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-gray-100 dark:border-slate-700">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-bold text-surface-800 dark:text-white">CVE 数量年度趋势</h2>
+            <h2 className="text-xl font-bold text-slate-800 dark:text-white">CVE 数量年度趋势</h2>
             <div className="px-3 py-1 bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400 rounded-full text-sm font-medium">
               1999 - 2026
             </div>
@@ -259,13 +259,13 @@ const Visualization = () => {
           <div ref={yearChartRef} className="w-full h-[400px]" />
         </div>
 
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
-          <h2 className="text-xl font-bold text-surface-800 dark:text-white mb-6">漏洞类型分布</h2>
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-gray-100 dark:border-slate-700">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6">漏洞类型分布</h2>
           <div ref={vulnChartRef} className="w-full h-[500px]" />
         </div>
 
-        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-surface-100 dark:border-slate-700">
-          <h2 className="text-xl font-bold text-surface-800 dark:text-white mb-6">Top 20 受影响产品分布</h2>
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-soft border border-gray-100 dark:border-slate-700">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6">Top 20 受影响产品分布</h2>
           <div ref={productChartRef} className="w-full h-[800px]" />
         </div>
       </div>

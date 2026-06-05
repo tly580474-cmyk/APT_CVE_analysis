@@ -46,7 +46,6 @@ const Sidebar = () => {
   const { isLoggedIn, isAdmin } = useAuth();
   const {
     isExpanded,
-    collapsed,
     toggleCollapsed,
     handleMouseEnter,
     handleMouseLeave,

@@ -27,46 +27,51 @@
 ## 技术栈
 
 ### 前端
-- React 18
-- Ant Design 5
-- Tailwind CSS
-- ECharts 5
-- React Router 6
+- React 19
+- Ant Design 6
+- Tailwind CSS 4
+- ECharts 6
+- React Router 7
 - Axios
+- Vite 8
 
 ### 后端
 - Node.js 20
-- Express 4
+- Express 5
 - PostgreSQL 15
-- Sequelize ORM
+- Sequelize 6 ORM
 - JWT认证
 - Multer文件上传
 
 ### AI集成
-- OpenAI API :
+- OpenAI兼容API（支持多种服务商）
 
 ## 项目结构
 
 ```
 APT攻击情报分析d/
-├── frontend/          # React前端项目
+├── frontend/              # React前端项目
 │   ├── src/
-│   │   ├── components/    # 组件
-│   │   ├── pages/         # 页面
-│   │   ├── services/      # API服务
-│   │   └── ...
-│   ├── package.json
-│   └── Dockerfile
-├── backend/           # Express后端项目
+│   │   ├── components/    # 组件（Layout、Sidebar等）
+│   │   ├── pages/         # 页面（Forum、CVE等）
+│   │   ├── services/      # API服务层
+│   │   ├── contexts/      # React Context（暗黑模式、侧边栏）
+│   │   └── styles/        # 样式文件
+│   └── package.json
+├── backend/               # Express后端项目
 │   ├── src/
 │   │   ├── controllers/   # 控制器
-│   │   ├── models/        # 数据模型
-│   │   ├── routes/        # 路由
-│   │   ├── middlewares/   # 中间件
-│   │   └── ...
-│   ├── package.json
-│   └── Dockerfile
-├── docker-compose.yml # Docker编排配置
+│   │   ├── models/        # Sequelize数据模型
+│   │   ├── routes/        # 路由定义
+│   │   ├── middlewares/   # 中间件（JWT认证等）
+│   │   └── config/        # 数据库配置
+│   └── package.json
+├── cve_repo/              # CVE漏洞数据（15万+ Markdown文件）
+│   ├── 1999/
+│   ├── 2000/
+│   └── ...2026/
+├── scripts/               # 工具脚本
+├── docker-compose.yml     # Docker编排配置
 └── README.md
 ```
 
@@ -149,18 +154,20 @@ npm run dev
 - 用户注册/登录
 - JWT认证
 - 个人资料管理
+- 管理员权限控制
 
 ### 2. 文档管理
-- 文档上传（支持PDF、Word、TXT等格式）
+- 文档上传（支持PDF、Word、TXT、Markdown等格式）
 - 文档列表和详情查看
 - AI智能分析
 - 威胁等级评估
 
 ### 3. CVE漏洞信息
-- CVE漏洞列表展示
-- 漏洞搜索
+- 15万+ CVE漏洞数据（1999-2026年）
+- 漏洞搜索和筛选
 - 热门CVE排行
 - POC可用性统计
+- AI分类脚本
 
 ### 4. 数据可视化
 - CVE数量按年份分布图
@@ -173,48 +180,65 @@ npm run dev
 - 评论和回复
 - 标签系统
 - 点赞功能
+- 浏览量统计（带去重机制）
 
 ### 6. AI分析
 - 文档内容智能分析
 - 威胁等级自动评估
 - 攻击类型识别
 - 防护建议生成
+- SSE流式输出
+
+### 7. UI特性
+- 深色/浅色主题切换
+- 可折叠侧边栏
+- 响应式布局（移动端底部导航）
+- 中文界面
 
 ## API接口
 
 ### 认证接口
-- POST /api/auth/register - 用户注册
-- POST /api/auth/login - 用户登录
-- GET /api/auth/me - 获取当前用户信息
+- `POST /api/auth/register` - 用户注册
+- `POST /api/auth/login` - 用户登录
+- `GET /api/auth/me` - 获取当前用户信息
 
 ### 文档接口
-- GET /api/documents - 获取文档列表
-- POST /api/documents - 创建文档
-- POST /api/documents/upload - 上传文档
-- GET /api/documents/:id - 获取文档详情
-- PUT /api/documents/:id - 更新文档
-- DELETE /api/documents/:id - 删除文档
+- `GET /api/documents` - 获取文档列表
+- `POST /api/documents` - 创建文档
+- `POST /api/documents/upload` - 上传文档
+- `GET /api/documents/:id` - 获取文档详情
+- `PUT /api/documents/:id` - 更新文档
+- `DELETE /api/documents/:id` - 删除文档
 
 ### CVE接口
-- GET /api/cve - 获取CVE列表
-- GET /api/cve/:id - 获取CVE详情
-- GET /api/cve/search - 搜索CVE
-- GET /api/cve/hot - 获取热门CVE
+- `GET /api/cve` - 获取CVE列表
+- `GET /api/cve/:id` - 获取CVE详情
+- `GET /api/cve/search` - 搜索CVE
+- `GET /api/cve/hot` - 获取热门CVE
+- `GET /api/cve/stats` - CVE统计数据
 
 ### AI分析接口
-- POST /api/ai/analyze - 分析文档
-- POST /api/ai/analyze-stream - 流式分析（打字机效果）
+- `POST /api/ai/analyze` - 分析文档
+- `POST /api/ai/analyze-stream` - 流式分析（SSE）
+- `POST /api/ai-analysis/analyze` - 文件/文本分析
+- `POST /api/ai-analysis/analyze-stream` - 流式分析
 
 ### 论坛接口
-- GET /api/forum/posts - 获取帖子列表
-- POST /api/forum/posts - 创建帖子
-- GET /api/forum/posts/:id - 获取帖子详情
-- POST /api/forum/posts/:id/comments - 添加评论
+- `GET /api/forum/posts` - 获取帖子列表
+- `POST /api/forum/posts` - 创建帖子（需登录）
+- `GET /api/forum/posts/:id` - 获取帖子详情
+- `PUT /api/forum/posts/:id` - 更新帖子（作者/管理员）
+- `DELETE /api/forum/posts/:id` - 删除帖子（作者/管理员）
+- `POST /api/forum/posts/:id/like` - 点赞帖子（需登录）
+- `POST /api/forum/posts/:id/comments` - 添加评论（需登录）
+
+### 统计接口
+- `GET /api/stats` - 获取平台统计数据
 
 ## 环境变量
 
 ### 后端环境变量 (.env)
-```
+```bash
 # 数据库配置
 DB_HOST=localhost
 DB_PORT=5432
@@ -230,32 +254,42 @@ JWT_EXPIRES_IN=7d
 PORT=3001
 NODE_ENV=development
 
+<<<<<<< Updated upstream
 # OpenAI API配置
 OPENAI_API_URL=
 OPENAI_API_KEY=your_api_key
+=======
+# AI分析配置
+AI_BASE_URL=https://api.example.com/v1
+AI_API_KEY=your_api_key
+AI_MODEL=gpt-4
+>>>>>>> Stashed changes
 ```
 
-## 开发计划
+## 开发命令
 
-- [x] 项目初始化和架构搭建
-- [x] 前端UI组件开发
-- [x] 后端API开发
-- [x] 数据库设计和模型创建
-- [x] 用户认证系统
-- [x] 文档管理和上传功能
-- [x] CVE漏洞信息集成
-- [x] AI分析功能
-- [x] 数据可视化
-- [x] 论坛系统
-- [x] Docker容器化部署
+### 前端
+```bash
+cd frontend
+npm run dev          # 启动开发服务器 (http://localhost:5173)
+npm run build        # 生产构建
+npm run lint         # ESLint检查
+```
 
-## 贡献指南
+### 后端
+```bash
+cd backend
+npm run dev          # 启动开发服务器 (nodemon, http://localhost:3001)
+npm run start        # 生产启动
+npm test             # 运行测试
+npm run test:coverage # 测试覆盖率
+```
 
-1. Fork项目
-2. 创建功能分支
-3. 提交更改
-4. 推送到分支
-5. 创建Pull Request
+### Docker
+```bash
+docker-compose up --build   # 启动所有服务
+docker-compose down         # 停止所有服务
+```
 
 ## 许可证
 

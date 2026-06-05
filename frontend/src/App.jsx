@@ -33,6 +33,14 @@ const AppContent = () => {
           colorPrimary: '#059669',
           fontFamily: "'JetBrains Mono', 'Microsoft YaHei', -apple-system, sans-serif",
           borderRadius: 6,
+          colorBgLayout: isDark ? '#111827' : '#f3f4f6',
+          colorBgContainer: isDark ? '#1f2937' : '#ffffff',
+          colorBgElevated: isDark ? '#273449' : '#ffffff',
+          colorBorder: isDark ? '#374151' : '#e5e7eb',
+          colorBorderSecondary: isDark ? '#2f3b4f' : '#f0f0f0',
+          colorText: isDark ? '#e5e7eb' : '#111827',
+          colorTextSecondary: isDark ? '#9ca3af' : '#6b7280',
+          colorTextTertiary: isDark ? '#6b7280' : '#9ca3af',
         },
       }}
     >

@@ -241,11 +241,11 @@ const AIAnalysis = () => {
                     <div
                       className="whitespace-pre-wrap font-mono text-sm leading-relaxed overflow-auto"
                       style={{
-                        backgroundColor: isDark ? '#17181A' : '#f5f5f5',
+                        backgroundColor: isDark ? '#273449' : '#f5f5f5',
                         padding: '12px',
                         borderRadius: '4px',
                         maxHeight: '300px',
-                        border: `1px solid ${isDark ? '#334155' : '#e8e8e8'}`
+                        border: `1px solid ${isDark ? '#374151' : '#e8e8e8'}`
                       }}
                     >
                       {fileContent}
@@ -308,7 +308,7 @@ const AIAnalysis = () => {
               ref={resultRef}
               className="prose max-w-none"
               style={{
-                backgroundColor: isDark ? '#17181A' : '#fafafa',
+                backgroundColor: isDark ? '#273449' : '#fafafa',
                 padding: '16px',
                 borderRadius: '8px',
                 minHeight: '200px',
@@ -332,35 +332,35 @@ const AIAnalysis = () => {
           font-size: 14px;
           line-height: 1.6;
           word-wrap: break-word;
-          color: ${isDark ? '#e2e8f0' : '#1e293b'};
+          color: ${isDark ? '#e5e7eb' : '#1e293b'};
         }
         .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
           margin-top: 24px; margin-bottom: 16px; font-weight: 600; line-height: 1.25;
-          color: ${isDark ? '#f1f5f9' : '#1e293b'};
+          color: ${isDark ? '#f9fafb' : '#1e293b'};
         }
-        .markdown-body h1 { font-size: 2em; border-bottom: 1px solid ${isDark ? '#334155' : '#eaecef'}; padding-bottom: 0.3em; }
-        .markdown-body h2 { font-size: 1.5em; border-bottom: 1px solid ${isDark ? '#334155' : '#eaecef'}; padding-bottom: 0.3em; }
+        .markdown-body h1 { font-size: 2em; border-bottom: 1px solid ${isDark ? '#374151' : '#eaecef'}; padding-bottom: 0.3em; }
+        .markdown-body h2 { font-size: 1.5em; border-bottom: 1px solid ${isDark ? '#374151' : '#eaecef'}; padding-bottom: 0.3em; }
         .markdown-body h3 { font-size: 1.25em; }
         .markdown-body p { margin-top: 0; margin-bottom: 16px; }
         .markdown-body ul, .markdown-body ol { padding-left: 2em; margin-top: 0; margin-bottom: 16px; }
         .markdown-body li { margin-top: 0.25em; }
         .markdown-body blockquote {
-          padding: 0 1em; color: ${isDark ? '#94a3b8' : '#6a737d'};
-          border-left: 0.25em solid ${isDark ? '#334155' : '#dfe2e5'}; margin: 0 0 16px 0;
+          padding: 0 1em; color: ${isDark ? '#9ca3af' : '#6a737d'};
+          border-left: 0.25em solid ${isDark ? '#374151' : '#dfe2e5'}; margin: 0 0 16px 0;
         }
         .markdown-body code {
           padding: 0.2em 0.4em; margin: 0; font-size: 85%;
           background-color: ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(27,31,35,0.05)'};
           border-radius: 3px; font-family: 'JetBrains Mono', Consolas, monospace;
         }
-        .markdown-body pre { margin: 0 0 16px 0; padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: #17181A; border-radius: 6px; }
+        .markdown-body pre { margin: 0 0 16px 0; padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: ${isDark ? '#111827' : '#f6f8fa'}; border-radius: 6px; }
         .markdown-body pre code { padding: 0; margin: 0; background-color: transparent; border: 0; font-size: 100%; }
         .markdown-body table { border-collapse: collapse; margin: 0 0 16px 0; width: 100%; }
-        .markdown-body table th, .markdown-body table td { padding: 6px 13px; border: 1px solid ${isDark ? '#334155' : '#dfe2e5'}; }
-        .markdown-body table th { font-weight: 600; background-color: ${isDark ? '#17181A' : '#f6f8fa'}; }
-        .markdown-body table tr:nth-child(2n) { background-color: ${isDark ? '#17181A' : '#f6f8fa'}; }
+        .markdown-body table th, .markdown-body table td { padding: 6px 13px; border: 1px solid ${isDark ? '#374151' : '#dfe2e5'}; }
+        .markdown-body table th { font-weight: 600; background-color: ${isDark ? '#1f2937' : '#f6f8fa'}; }
+        .markdown-body table tr:nth-child(2n) { background-color: ${isDark ? '#1f2937' : '#f6f8fa'}; }
         .markdown-body .table-wrapper { overflow-x: auto; margin: 0 0 16px 0; }
-        .markdown-body hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: ${isDark ? '#334155' : '#e1e4e8'}; border: 0; }
+        .markdown-body hr { height: 0.25em; padding: 0; margin: 24px 0; background-color: ${isDark ? '#374151' : '#e1e4e8'}; border: 0; }
         .markdown-body a { color: #059669; text-decoration: none; }
         .markdown-body a:hover { text-decoration: underline; }
         .markdown-body img { max-width: 100%; box-sizing: content-box; }
